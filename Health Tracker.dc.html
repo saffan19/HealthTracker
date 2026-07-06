@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{background:#f6f4ee;font-family:'Public Sans',system-ui,sans-serif;color:#1a1a17;-webkit-font-smoothing:antialiased}
+  input:focus{outline:none}
+  ::placeholder{color:#b7b3a8}
+  @keyframes ht-pulse{0%,100%{opacity:1}50%{opacity:.35}}
+  @keyframes ht-pop{0%{transform:scale(.82)}60%{transform:scale(1.06)}100%{transform:scale(1)}}
+</style>
+</helmet>
+
+<div style="min-height:100vh;padding:28px 22px 60px;max-width:980px;margin:0 auto">
+
+  <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap;margin-bottom:24px">
+    <div>
+      <div style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:30px;letter-spacing:-.02em;line-height:1">Health Tracker</div>
+      <div style="color:#8a8578;font-size:14px;margin-top:6px">Afrah &amp; Safwan · daily diet &amp; exercise · {{ rangeLabel }}</div>
+    </div>
+    <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+      <div style="display:flex;align-items:center;gap:7px;background:#fff;border:1px solid #e7e3d9;border-radius:999px;padding:7px 13px;font-size:12.5px;font-weight:600">
+        <span style="{{ statusDot }}"></span><span style="{{ statusTextStyle }}">{{ statusText }}</span>
+      </div>
+      <button onClick="{{ openTutorial }}" style="background:#fff;border:1px solid #e7e3d9;border-radius:999px;padding:8px 15px;font-size:13px;font-weight:600;font-family:inherit;cursor:pointer;color:#3a382f">How it works</button>
+      <button onClick="{{ syncNow }}" style="background:#fff;border:1px solid #e7e3d9;border-radius:999px;padding:8px 15px;font-size:13px;font-weight:600;font-family:inherit;cursor:pointer;color:#3a382f">Sync</button>
+      <button onClick="{{ exportJson }}" style="background:#fff;border:1px solid #e7e3d9;border-radius:999px;padding:8px 15px;font-size:13px;font-weight:600;font-family:inherit;cursor:pointer;color:#3a382f">Export</button>
+      <button onClick="{{ openConnect }}" style="{{ connectBtnStyle }}">{{ connectBtnLabel }}</button>
+    </div>
+  </div>
+
+  <sc-if value="{{ showBanner }}" hint-placeholder-val="{{ false }}">
+    <div style="background:#fbf6e9;border:1px solid #ecdca8;border-radius:14px;padding:14px 16px;margin-bottom:20px;display:flex;gap:12px;align-items:center;font-size:13.5px;color:#6b5d2e">
+      <span style="font-size:17px">◇</span>
+      <span style="flex:1">Not connected to GitHub yet — changes save in this browser only. Connect a repo so you both share the same data.</span>
+      <button onClick="{{ openConnect }}" style="background:#6b5d2e;color:#fff;border:none;border-radius:999px;padding:7px 14px;font-size:12.5px;font-weight:600;font-family:inherit;cursor:pointer;white-space:nowrap">Connect</button>
+    </div>
+  </sc-if>
+
+  <!-- TODAY -->
+  <sc-if value="{{ hasToday }}" hint-placeholder-val="{{ true }}">
+    <div style="background:#1a1a17;color:#fff;border-radius:20px;padding:22px 22px 24px;margin-bottom:22px">
+      <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:18px">
+        <div style="font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:#c9c6bd">Today</div>
+        <div style="font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:16px">{{ today.weekday }} · {{ today.label }}</div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+        <sc-for list="{{ todayPeople }}" as="p" hint-placeholder-count="2">
+          <div style="background:#26251f;border-radius:15px;padding:15px 15px 16px">
+            <div style="display:flex;align-items:center;gap:9px;margin-bottom:13px">
+              <span style="{{ p.dotStyle }}"></span>
+              <span style="font-weight:600;font-size:15px">{{ p.name }}</span>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:9px">
+              <button onClick="{{ p.diet.toggle }}" style="{{ p.diet.bigStyle }}">
+                <span style="font-size:11px;letter-spacing:.08em;text-transform:uppercase;opacity:.7;font-weight:600">Diet</span>
+                <span style="font-size:22px;font-weight:700;font-family:'Space Grotesk',sans-serif">{{ p.diet.text }}</span>
+              </button>
+              <button onClick="{{ p.ex.toggle }}" style="{{ p.ex.bigStyle }}">
+                <span style="font-size:11px;letter-spacing:.08em;text-transform:uppercase;opacity:.7;font-weight:600">Exercise</span>
+                <span style="font-size:22px;font-weight:700;font-family:'Space Grotesk',sans-serif">{{ p.ex.text }}</span>
+              </button>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </sc-if>
+
+  <!-- STAT CARDS -->
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:22px">
+    <sc-for list="{{ people }}" as="p" hint-placeholder-count="2">
+      <div style="background:#fff;border:1px solid #e7e3d9;border-radius:20px;padding:20px">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:18px">
+          <span style="{{ p.dotStyle }}"></span>
+          <span style="font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:18px">{{ p.name }}</span>
+          <span style="margin-left:auto;font-size:12px;color:#a29d90">{{ p.loggedLabel }}</span>
+        </div>
+        <div style="display:flex;gap:16px;align-items:center">
+          <div style="display:flex;gap:16px;flex:1">
+            <div style="text-align:center">
+              <div style="{{ p.dietRing }}"><div style="width:56px;height:56px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:16px">{{ p.dietPct }}</div></div>
+              <div style="font-size:11.5px;color:#8a8578;margin-top:7px;font-weight:600;letter-spacing:.04em">HEALTHY %</div>
+            </div>
+            <div style="text-align:center">
+              <div style="{{ p.exRing }}"><div style="width:56px;height:56px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:16px">{{ p.exPct }}</div></div>
+              <div style="font-size:11.5px;color:#8a8578;margin-top:7px;font-weight:600;letter-spacing:.04em">ACTIVE %</div>
+            </div>
+          </div>
+          <div style="border-left:1px solid #eee7d9;padding-left:16px">
+            <div style="margin-bottom:12px">
+              <div style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:24px;line-height:1">{{ p.dietStreak }}</div>
+              <div style="font-size:11.5px;color:#8a8578;font-weight:600">diet streak</div>
+            </div>
+            <div>
+              <div style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:24px;line-height:1">{{ p.exStreak }}</div>
+              <div style="font-size:11.5px;color:#8a8578;font-weight:600">exercise streak</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </sc-for>
+  </div>
+
+  <!-- GRID -->
+  <div style="background:#fff;border:1px solid #e7e3d9;border-radius:20px;padding:8px 18px 18px">
+    <div style="display:flex;align-items:center;gap:16px;padding:14px 2px 12px;flex-wrap:wrap">
+      <div style="font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:15px">Daily log</div>
+      <div style="display:flex;gap:14px;margin-left:auto;font-size:12px;color:#8a8578;align-items:center">
+        <span style="display:flex;align-items:center;gap:6px"><span style="{{ dietSwatch }}"></span>Diet</span>
+        <span style="display:flex;align-items:center;gap:6px"><span style="{{ exSwatch }}"></span>Exercise</span>
+        <span style="color:#c2bdb0">tap a cell to toggle 1 / 0</span>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:118px repeat(4,1fr);gap:6px;margin-bottom:4px">
+      <div></div>
+      <div style="grid-column:span 2;text-align:center;font-weight:600;font-size:12.5px;color:#3a382f;padding:6px;border-radius:8px;background:#f6f4ee;display:flex;align-items:center;justify-content:center;gap:7px"><span style="{{ afDot }}"></span>Afrah</div>
+      <div style="grid-column:span 2;text-align:center;font-weight:600;font-size:12.5px;color:#3a382f;padding:6px;border-radius:8px;background:#f6f4ee;display:flex;align-items:center;justify-content:center;gap:7px"><span style="{{ safDot }}"></span>Safwan</div>
+    </div>
+    <div style="display:grid;grid-template-columns:118px repeat(4,1fr);gap:6px;margin-bottom:8px">
+      <div style="font-size:11px;color:#a29d90;font-weight:600;padding-left:4px;align-self:center">DATE</div>
+      <div style="text-align:center;font-size:11px;color:#a29d90;font-weight:600">Diet</div>
+      <div style="text-align:center;font-size:11px;color:#a29d90;font-weight:600">Exer.</div>
+      <div style="text-align:center;font-size:11px;color:#a29d90;font-weight:600">Diet</div>
+      <div style="text-align:center;font-size:11px;color:#a29d90;font-weight:600">Exer.</div>
+    </div>
+
+    <sc-for list="{{ days }}" as="d" hint-placeholder-count="13">
+      <div style="{{ d.rowStyle }}">
+        <div style="display:flex;flex-direction:column;justify-content:center;padding-left:4px">
+          <span style="font-weight:600;font-size:13.5px;font-family:'Space Grotesk',sans-serif">{{ d.label }}</span>
+          <span style="font-size:11px;color:#a8a397">{{ d.weekday }}</span>
+        </div>
+        <div onClick="{{ d.afDiet.toggle }}" style="{{ d.afDiet.style }}">{{ d.afDiet.text }}</div>
+        <div onClick="{{ d.afEx.toggle }}" style="{{ d.afEx.style }}">{{ d.afEx.text }}</div>
+        <div onClick="{{ d.safDiet.toggle }}" style="{{ d.safDiet.style }}">{{ d.safDiet.text }}</div>
+        <div onClick="{{ d.safEx.toggle }}" style="{{ d.safEx.style }}">{{ d.safEx.text }}</div>
+      </div>
+    </sc-for>
+  </div>
+
+  <div style="text-align:center;color:#b3aea0;font-size:12px;margin-top:22px">Data stored as JSON in your GitHub repo · cached locally in this browser</div>
+
+  <!-- TUTORIAL MODAL -->
+  <sc-if value="{{ showTutorial }}" hint-placeholder-val="{{ false }}">
+    <div style="position:fixed;inset:0;background:rgba(26,26,23,.5);display:flex;align-items:center;justify-content:center;padding:20px;z-index:60" onClick="{{ closeTutorial }}">
+      <div onClick="{{ stop }}" style="background:#fff;border-radius:22px;padding:28px;max-width:520px;width:100%;max-height:88vh;overflow:auto;box-shadow:0 24px 60px rgba(0,0,0,.28)">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:4px">
+          <div style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:22px">How it works</div>
+          <button onClick="{{ closeTutorial }}" style="background:#f2f0e9;border:none;border-radius:50%;width:32px;height:32px;font-size:17px;cursor:pointer;color:#6b665a;line-height:1">×</button>
+        </div>
+        <div style="font-size:13.5px;color:#8a8578;margin-bottom:20px">Track daily diet &amp; exercise for Afrah and Safwan — Jul 6 to Oct 10.</div>
+
+        <div style="display:flex;flex-direction:column;gap:14px">
+          <div style="display:flex;gap:14px;align-items:flex-start">
+            <span style="flex:none;width:28px;height:28px;border-radius:50%;background:#1a1a17;color:#fff;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:14px;display:flex;align-items:center;justify-content:center">1</span>
+            <div><div style="font-weight:600;font-size:15px;margin-bottom:3px">Log your day</div><div style="font-size:13.5px;color:#6b665a;line-height:1.55">Use the big <b>Today</b> buttons, or tap any cell in the grid. Each tap flips between <b>1</b> and <b>0</b>. <b>1</b> = diet was good / you exercised, <b>0</b> = not. Blank (–) means nothing logged yet.</div></div>
+          </div>
+          <div style="display:flex;gap:14px;align-items:flex-start">
+            <span style="flex:none;width:28px;height:28px;border-radius:50%;background:#1a1a17;color:#fff;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:14px;display:flex;align-items:center;justify-content:center">2</span>
+            <div><div style="font-weight:600;font-size:15px;margin-bottom:3px">Read your stats</div><div style="font-size:13.5px;color:#6b665a;line-height:1.55"><b>Healthy %</b> is the share of your logged days where diet = 1. <b>Active %</b> is the same for exercise. <b>Streaks</b> count consecutive days (up to today) at 1.</div></div>
+          </div>
+          <div style="display:flex;gap:14px;align-items:flex-start">
+            <span style="flex:none;width:28px;height:28px;border-radius:50%;background:#1a1a17;color:#fff;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:14px;display:flex;align-items:center;justify-content:center">3</span>
+            <div><div style="font-weight:600;font-size:15px;margin-bottom:3px">Share between both of you</div><div style="font-size:13.5px;color:#6b665a;line-height:1.55">Click <b>Connect GitHub</b> once and paste a repo + access token. Your data saves to a <b>data.json</b> file you both share. Press <b>Sync</b> to pull the other person's latest changes.</div></div>
+          </div>
+          <div style="display:flex;gap:14px;align-items:flex-start">
+            <span style="flex:none;width:28px;height:28px;border-radius:50%;background:#1a1a17;color:#fff;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:14px;display:flex;align-items:center;justify-content:center">4</span>
+            <div><div style="font-weight:600;font-size:15px;margin-bottom:3px">Works offline too</div><div style="font-size:13.5px;color:#6b665a;line-height:1.55">Without connecting, everything still saves in this browser. Use <b>Export</b> anytime to download the raw JSON.</div></div>
+          </div>
+        </div>
+
+        <div style="display:flex;gap:10px;margin-top:24px">
+          <button onClick="{{ closeTutorial }}" style="background:#1a1a17;color:#fff;border:none;border-radius:11px;padding:12px 22px;font-size:14px;font-weight:600;font-family:inherit;cursor:pointer">Got it</button>
+          <button onClick="{{ startConnectFromTutorial }}" style="background:#f2f0e9;color:#3a382f;border:none;border-radius:11px;padding:12px 20px;font-size:14px;font-weight:600;font-family:inherit;cursor:pointer">Connect GitHub</button>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+  <!-- CONNECT MODAL -->
+  <sc-if value="{{ showConnect }}" hint-placeholder-val="{{ false }}">
+    <div style="position:fixed;inset:0;background:rgba(26,26,23,.5);display:flex;align-items:center;justify-content:center;padding:20px;z-index:50" onClick="{{ closeConnect }}">
+      <div onClick="{{ stop }}" style="background:#fff;border-radius:20px;padding:26px;max-width:460px;width:100%;box-shadow:0 24px 60px rgba(0,0,0,.25)">
+        <div style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:20px;margin-bottom:6px">Connect GitHub</div>
+        <div style="font-size:13px;color:#8a8578;line-height:1.5;margin-bottom:18px">Point at a repo with a <b>data.json</b> file. Create a fine-grained token with <b>Contents: Read &amp; write</b> on that repo. Stored only in this browser.</div>
+        <div style="display:grid;gap:11px">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:11px">
+            <label style="font-size:12px;font-weight:600;color:#6b665a">Owner / user
+              <input value="{{ cfg.owner }}" onInput="{{ onOwner }}" placeholder="e.g. afrah" style="width:100%;margin-top:5px;padding:10px 12px;border:1px solid #ddd8cc;border-radius:10px;font-size:14px;font-family:inherit;font-weight:500;color:#1a1a17">
+            </label>
+            <label style="font-size:12px;font-weight:600;color:#6b665a">Repo
+              <input value="{{ cfg.repo }}" onInput="{{ onRepo }}" placeholder="health-tracker" style="width:100%;margin-top:5px;padding:10px 12px;border:1px solid #ddd8cc;border-radius:10px;font-size:14px;font-family:inherit;font-weight:500;color:#1a1a17">
+            </label>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:11px">
+            <label style="font-size:12px;font-weight:600;color:#6b665a">Branch
+              <input value="{{ cfg.branch }}" onInput="{{ onBranch }}" placeholder="main" style="width:100%;margin-top:5px;padding:10px 12px;border:1px solid #ddd8cc;border-radius:10px;font-size:14px;font-family:inherit;font-weight:500;color:#1a1a17">
+            </label>
+            <label style="font-size:12px;font-weight:600;color:#6b665a">JSON path
+              <input value="{{ cfg.path }}" onInput="{{ onPath }}" placeholder="data.json" style="width:100%;margin-top:5px;padding:10px 12px;border:1px solid #ddd8cc;border-radius:10px;font-size:14px;font-family:inherit;font-weight:500;color:#1a1a17">
+            </label>
+          </div>
+          <label style="font-size:12px;font-weight:600;color:#6b665a">Access token
+            <input value="{{ cfg.token }}" onInput="{{ onToken }}" type="password" placeholder="github_pat_..." style="width:100%;margin-top:5px;padding:10px 12px;border:1px solid #ddd8cc;border-radius:10px;font-size:14px;font-family:inherit;font-weight:500;color:#1a1a17">
+          </label>
+        </div>
+        <sc-if value="{{ cfgError }}" hint-placeholder-val="{{ false }}">
+          <div style="margin-top:12px;font-size:12.5px;color:#b4442f;background:#fbecea;border-radius:9px;padding:9px 11px">{{ cfgError }}</div>
+        </sc-if>
+        <div style="display:flex;gap:10px;margin-top:20px;align-items:center">
+          <button onClick="{{ saveConfig }}" style="background:#1a1a17;color:#fff;border:none;border-radius:11px;padding:12px 20px;font-size:14px;font-weight:600;font-family:inherit;cursor:pointer">Connect &amp; sync</button>
+          <button onClick="{{ closeConnect }}" style="background:none;border:none;color:#8a8578;font-size:14px;font-weight:600;font-family:inherit;cursor:pointer;padding:12px">Cancel</button>
+          <sc-if value="{{ connected }}" hint-placeholder-val="{{ false }}">
+            <button onClick="{{ disconnect }}" style="margin-left:auto;background:none;border:none;color:#b4442f;font-size:13px;font-weight:600;font-family:inherit;cursor:pointer;padding:12px">Disconnect</button>
+          </sc-if>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1000,&quot;height&quot;:900},&quot;dietColor&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#1f8a5b&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Colors&quot;},&quot;exerciseColor&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#2a6fdb&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Colors&quot;}}">
+class Component extends DCLogic {
+  state = {
+    data: { entries: {} },
+    cfg: { owner:'', repo:'', branch:'main', path:'data.json', token:'' },
+    showConnect:false, showTutorial:false, status:'idle', lastSync:null, cfgError:'', sha:null
+  };
+
+  START='2026-07-06'; END='2026-10-10';
+  DIET(){ return this.props.dietColor || '#1f8a5b'; }
+  EX(){ return this.props.exerciseColor || '#2a6fdb'; }
+  AF='#d97757'; SAF='#7a5cc2';
+
+  componentDidMount(){
+    try{
+      const c=localStorage.getItem('ht.config'); if(c) this.setState({cfg:{...this.state.cfg,...JSON.parse(c)}});
+      const d=localStorage.getItem('ht.data'); if(d) this.setState({data:JSON.parse(d)});
+    }catch(e){}
+    setTimeout(()=>{ if(this.isConfigured()) this.fetchRemote(); }, 60);
+    this._debTimer=null;
+  }
+
+  isConfigured(){ const c=this.state.cfg; return !!(c.owner&&c.repo&&c.token); }
+
+  // ---- date helpers ----
+  dateList(){
+    const out=[]; let cur=new Date(this.START+'T00:00:00'); const end=new Date(this.END+'T00:00:00');
+    while(cur<=end){ out.push(this.key(cur)); cur.setDate(cur.getDate()+1); }
+    return out;
+  }
+  key(d){ return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); }
+  todayStr(){ return this.key(new Date()); }
+  fmt(k){ const [y,m,dd]=k.split('-').map(Number); const d=new Date(y,m-1,dd);
+    const mo=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][m-1];
+    const wd=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'][d.getDay()];
+    return { label:mo+' '+dd, weekday:wd };
+  }
+
+  getVal(k,person,field){ const e=this.state.data.entries[k]; return e&&e[person]?e[person][field]:undefined; }
+
+  toggle(k,person,field){
+    const cur=this.getVal(k,person,field);
+    const next=cur===1?0:1;
+    const data={...this.state.data, entries:{...this.state.data.entries}};
+    const day={...(data.entries[k]||{})};
+    day[person]={...(day[person]||{}), [field]:next};
+    data.entries[k]=day;
+    this.setState({data});
+    try{ localStorage.setItem('ht.data', JSON.stringify(data)); }catch(e){}
+    this.debouncedPush();
+  }
+
+  debouncedPush(){
+    if(!this.isConfigured()) return;
+    clearTimeout(this._debTimer);
+    this._debTimer=setTimeout(()=>this.pushRemote(), 700);
+  }
+
+  b64e(s){ return btoa(unescape(encodeURIComponent(s))); }
+  b64d(s){ return decodeURIComponent(escape(atob(String(s).replace(/\s/g,'')))); }
+
+  async fetchRemote(){
+    const c=this.state.cfg; if(!c.owner||!c.repo) return;
+    this.setState({status:'syncing'});
+    try{
+      const url=`https://api.github.com/repos/${c.owner}/${c.repo}/contents/${encodeURIComponent(c.path)}?ref=${encodeURIComponent(c.branch||'main')}`;
+      const h={'Accept':'application/vnd.github+json'}; if(c.token) h.Authorization='Bearer '+c.token;
+      const res=await fetch(url,{headers:h});
+      if(res.ok){
+        const j=await res.json();
+        const data=JSON.parse(this.b64d(j.content));
+        if(!data.entries) data.entries={};
+        this.setState({data, sha:j.sha, status:'synced', lastSync:Date.now()});
+        try{ localStorage.setItem('ht.data', JSON.stringify(data)); }catch(e){}
+      } else if(res.status===404){
+        this.setState({sha:null, status:'synced'}); // file not created yet; first push creates it
+      } else {
+        this.setState({status:'error', cfgError:'Read failed ('+res.status+'). Check owner/repo/branch/token.'});
+      }
+    }catch(e){ this.setState({status:'error'}); }
+  }
+
+  async pushRemote(retry){
+    const c=this.state.cfg; if(!this.isConfigured()) return;
+    this.setState({status:'saving'});
+    try{
+      const url=`https://api.github.com/repos/${c.owner}/${c.repo}/contents/${encodeURIComponent(c.path)}`;
+      const body={ message:'update '+new Date().toISOString(), content:this.b64e(JSON.stringify(this.state.data,null,2)), branch:c.branch||'main' };
+      if(this.state.sha) body.sha=this.state.sha;
+      const res=await fetch(url,{method:'PUT',headers:{'Accept':'application/vnd.github+json','Authorization':'Bearer '+c.token},body:JSON.stringify(body)});
+      if(res.ok){ const j=await res.json(); this.setState({sha:j.content.sha, status:'synced', lastSync:Date.now(), cfgError:''}); }
+      else if(res.status===409 && !retry){ await this.fetchRemote(); return this.pushRemote(true); }
+      else { this.setState({status:'error', cfgError:'Save failed ('+res.status+').'}); }
+    }catch(e){ this.setState({status:'error'}); }
+  }
+
+  // ---- ui handlers ----
+  openTutorial=()=>this.setState({showTutorial:true});
+  closeTutorial=()=>this.setState({showTutorial:false});
+  startConnectFromTutorial=()=>this.setState({showTutorial:false, showConnect:true, cfgError:''});
+  openConnect=()=>this.setState({showConnect:true, cfgError:''});
+  closeConnect=()=>this.setState({showConnect:false});
+  stop=(e)=>{ e.stopPropagation(); };
+  setCfg(field,v){ this.setState({cfg:{...this.state.cfg,[field]:v}}); }
+  onOwner=(e)=>this.setCfg('owner',e.target.value.trim());
+  onRepo=(e)=>this.setCfg('repo',e.target.value.trim());
+  onBranch=(e)=>this.setCfg('branch',e.target.value.trim());
+  onPath=(e)=>this.setCfg('path',e.target.value.trim());
+  onToken=(e)=>this.setCfg('token',e.target.value.trim());
+  saveConfig=()=>{
+    const c=this.state.cfg;
+    if(!c.owner||!c.repo){ this.setState({cfgError:'Owner and repo are required.'}); return; }
+    try{ localStorage.setItem('ht.config', JSON.stringify(c)); }catch(e){}
+    this.setState({showConnect:false, cfgError:''});
+    this.fetchRemote();
+  };
+  disconnect=()=>{
+    try{ localStorage.removeItem('ht.config'); }catch(e){}
+    this.setState({cfg:{owner:'',repo:'',branch:'main',path:'data.json',token:''}, sha:null, status:'idle', showConnect:false});
+  };
+  syncNow=()=>{ if(this.isConfigured()) this.fetchRemote(); };
+  exportJson=()=>{
+    const blob=new Blob([JSON.stringify(this.state.data,null,2)],{type:'application/json'});
+    const url=URL.createObjectURL(blob); const a=document.createElement('a');
+    a.href=url; a.download='data.json'; a.click(); setTimeout(()=>URL.revokeObjectURL(url),1000);
+  };
+
+  // ---- derived ----
+  cell(k,person,field,color){
+    const v=this.getVal(k,person,field);
+    const on=v===1, has=v!==undefined;
+    const bg = on?color:(has?'#f1efe8':'#fbfaf6');
+    const col = on?'#fff':(has?'#3a382f':'#cdc9bd');
+    const bd = on?color:'#eae6db';
+    return {
+      text: on?'1':(has?'0':'–'),
+      toggle: ()=>this.toggle(k,person,field),
+      style:`height:36px;display:flex;align-items:center;justify-content:center;border-radius:9px;cursor:pointer;font-weight:700;font-size:14px;font-family:'Space Grotesk',sans-serif;background:${bg};color:${col};border:1px solid ${bd};user-select:none;transition:background .12s`,
+      bigStyle:`display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;height:74px;border-radius:12px;cursor:pointer;font-family:inherit;border:1.5px solid ${on?color:'#3a3830'};background:${on?color:'transparent'};color:#fff;transition:all .14s`
+    };
+  }
+
+  stats(person){
+    const days=this.dateList(); const today=this.todayStr();
+    let dTot=0,dOne=0,eTot=0,eOne=0;
+    days.forEach(k=>{
+      const dv=this.getVal(k,person,'diet'); if(dv!==undefined){dTot++; if(dv===1)dOne++;}
+      const ev=this.getVal(k,person,'exercise'); if(ev!==undefined){eTot++; if(ev===1)eOne++;}
+    });
+    const dietPct=dTot?Math.round(dOne/dTot*100):0;
+    const exPct=eTot?Math.round(eOne/eTot*100):0;
+    // streaks: from most recent past/today day backward
+    const pastDays=days.filter(k=>k<=today);
+    const streak=(field)=>{ let s=0; for(let i=pastDays.length-1;i>=0;i--){ const v=this.getVal(pastDays[i],person,field); if(v===1)s++; else break; } return s; };
+    return { dietPct, exPct, dietStreak:streak('diet'), exStreak:streak('exercise'), logged:dTot };
+  }
+
+  ring(pct,color){ const deg=Math.max(0,Math.min(100,pct))*3.6; return `width:80px;height:80px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:conic-gradient(${color} ${deg}deg, #eeeae0 0deg)`; }
+
+  personObj(person,name,dot){
+    const s=this.stats(person);
+    return {
+      name, key:person,
+      dotStyle:`display:inline-block;width:11px;height:11px;border-radius:50%;background:${dot}`,
+      dietPct:s.dietPct+'%', exPct:s.exPct+'%',
+      dietRing:this.ring(s.dietPct,this.DIET()), exRing:this.ring(s.exPct,this.EX()),
+      dietStreak:s.dietStreak, exStreak:s.exStreak,
+      loggedLabel:s.logged+' days logged'
+    };
+  }
+
+  renderVals(){
+    const list=this.dateList(); const today=this.todayStr();
+    const days=list.map(k=>{
+      const f=this.fmt(k); const isT=k===today;
+      return {
+        label:f.label, weekday:f.weekday,
+        rowStyle:`display:grid;grid-template-columns:118px repeat(4,1fr);gap:6px;padding:5px 4px;border-radius:11px;${isT?'background:#f6f4ee;box-shadow:inset 0 0 0 1.5px '+this.DIET():''}`,
+        afDiet:this.cell(k,'af','diet',this.DIET()),
+        afEx:this.cell(k,'af','exercise',this.EX()),
+        safDiet:this.cell(k,'saf','diet',this.DIET()),
+        safEx:this.cell(k,'saf','exercise',this.EX())
+      };
+    });
+
+    const st=this.state.status;
+    const statusMap={ idle:['Local only','#c9a227'], synced:['Synced','#1f8a5b'], saving:['Saving…','#2a6fdb'], syncing:['Syncing…','#2a6fdb'], error:['Sync error','#b4442f'] };
+    const [statusText,statusColor]=statusMap[st]||statusMap.idle;
+    const pulsing = (st==='saving'||st==='syncing');
+
+    const af=this.personObj('af','Afrah',this.AF);
+    const saf=this.personObj('saf','Safwan',this.SAF);
+
+    const hasToday=list.includes(today);
+    const tf=hasToday?this.fmt(today):null;
+    const todayPeople=hasToday?[
+      { name:'Afrah', dotStyle:`display:inline-block;width:10px;height:10px;border-radius:50%;background:${this.AF}`, diet:this.cell(today,'af','diet',this.DIET()), ex:this.cell(today,'af','exercise',this.EX()) },
+      { name:'Safwan', dotStyle:`display:inline-block;width:10px;height:10px;border-radius:50%;background:${this.SAF}`, diet:this.cell(today,'saf','diet',this.DIET()), ex:this.cell(today,'saf','exercise',this.EX()) }
+    ]:[];
+
+    return {
+      days, people:[af,saf], af, saf,
+      hasToday, today: tf?{label:tf.label,weekday:tf.weekday}:{}, todayPeople,
+      rangeLabel: this.fmt(this.START).label+' – '+this.fmt(this.END).label,
+      showConnect:this.state.showConnect, showTutorial:this.state.showTutorial, cfg:this.state.cfg, cfgError:this.state.cfgError,
+      openTutorial:this.openTutorial, closeTutorial:this.closeTutorial, startConnectFromTutorial:this.startConnectFromTutorial,
+      connected:this.isConfigured(), showBanner:!this.isConfigured(),
+      statusText, statusTextStyle:`color:${statusColor}`,
+      statusDot:`display:inline-block;width:8px;height:8px;border-radius:50%;background:${statusColor};${pulsing?'animation:ht-pulse 1s infinite':''}`,
+      connectBtnLabel:this.isConfigured()?'Connected':'Connect GitHub',
+      connectBtnStyle:`background:${this.isConfigured()?'#1f8a5b':'#1a1a17'};color:#fff;border:none;border-radius:999px;padding:9px 16px;font-size:13px;font-weight:600;font-family:inherit;cursor:pointer`,
+      dietSwatch:`display:inline-block;width:11px;height:11px;border-radius:3px;background:${this.DIET()}`,
+      exSwatch:`display:inline-block;width:11px;height:11px;border-radius:3px;background:${this.EX()}`,
+      afDot:`display:inline-block;width:9px;height:9px;border-radius:50%;background:${this.AF}`,
+      safDot:`display:inline-block;width:9px;height:9px;border-radius:50%;background:${this.SAF}`,
+      openConnect:this.openConnect, closeConnect:this.closeConnect, stop:this.stop,
+      saveConfig:this.saveConfig, disconnect:this.disconnect, syncNow:this.syncNow, exportJson:this.exportJson,
+      onOwner:this.onOwner, onRepo:this.onRepo, onBranch:this.onBranch, onPath:this.onPath, onToken:this.onToken
+    };
+  }
+}
+</script>
+</body>
+</html>
