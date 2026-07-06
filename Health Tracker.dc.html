@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23fce0ea'/%3E%3Ccircle cx='26' cy='40' r='13' fill='none' stroke='%23e2c078' stroke-width='4.5'/%3E%3Ccircle cx='40' cy='40' r='13' fill='none' stroke='%23d9b36a' stroke-width='4.5'/%3E%3Cpath d='M40 10l5 8-5 6-5-6 5-8z' fill='%23f7ecd2' stroke='%23d9b36a' stroke-width='2.5' stroke-linejoin='round'/%3E%3C/svg%3E">
+<title>Afrah & Safwan · Wedding Glow-Up</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{background:#fbeff4;font-family:'Nunito',system-ui,sans-serif;color:#5e3a4c;-webkit-font-smoothing:antialiased}
+  input:focus{outline:none}
+  ::placeholder{color:#d9b3c4}
+  @keyframes ht-pulse{0%,100%{opacity:1}50%{opacity:.35}}
+  @keyframes floatUp{0%{transform:translateY(0) scale(.4) rotate(0deg);opacity:0}12%{opacity:1}100%{transform:translateY(-280px) scale(1.05) rotate(24deg);opacity:0}}
+  @keyframes fallDown{0%{transform:translateY(-20px) rotate(0);opacity:0}15%{opacity:.9}100%{transform:translateY(150px) rotate(60deg);opacity:0}}
+  @keyframes popIn{0%{transform:scale(.3);opacity:0}55%{transform:scale(1.12)}100%{transform:scale(1);opacity:1}}
+  @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+  @keyframes bobb{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-6px) rotate(2deg)}}
+  @keyframes twinkle{0%,100%{opacity:.2;transform:scale(.7)}50%{opacity:1;transform:scale(1.15)}}
+  @keyframes floatSlow{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-12px) rotate(8deg)}}
+  @keyframes shimmer{0%{transform:translateX(-120%)}60%,100%{transform:translateX(240%)}}
+  @keyframes sadSway{0%{transform:rotate(-3deg)}100%{transform:rotate(3deg)}}
+  @keyframes drip{0%{transform:translateY(0);opacity:0}25%{opacity:1}100%{transform:translateY(16px);opacity:0}}
+  @keyframes wiggle{0%,100%{transform:rotate(-4deg)}50%{transform:rotate(4deg)}}
+  @keyframes tapPulse{0%,100%{transform:scale(1);opacity:.55}50%{transform:scale(1.1);opacity:.9}}
+  @keyframes checkPop{0%{transform:scale(.2);opacity:0}55%{transform:scale(1.18)}100%{transform:scale(1);opacity:1}}
+  @keyframes heartFloat{0%{transform:translateY(0);opacity:.5}50%{transform:translateY(-9px);opacity:.9}100%{transform:translateY(0);opacity:.5}}
+  @keyframes ringGrow{0%{transform:scale(.7);opacity:0}100%{transform:scale(1);opacity:1}}
+</style>
+</helmet>
+
+<div data-screen-label="Wedding Glow-Up" style="min-height:100vh;padding:22px 16px 72px;max-width:900px;margin:0 auto;position:relative">
+
+  <!-- TOP BAR -->
+  <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:20px">
+    <div style="display:flex;align-items:center;gap:12px">
+      <span style="display:inline-flex;animation:floatSlow 4s ease-in-out infinite">
+        <svg width="34" height="30" viewBox="0 0 44 40" fill="none"><circle cx="17" cy="24" r="12" stroke="#d9b36a" stroke-width="3.5"/><circle cx="29" cy="24" r="12" stroke="#cf9f52" stroke-width="3.5"/><path d="M29 3l4 6-4 5-4-5 4-6z" fill="#f2e3c4" stroke="#d9b36a" stroke-width="2" stroke-linejoin="round"/></svg>
+      </span>
+      <div>
+        <div style="font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:600;font-size:24px;line-height:.95;color:#c7648a">Afrah &amp; Safwan</div>
+        <div style="font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:#c98aa6;font-weight:700;margin-top:2px">Wedding Glow-Up</div>
+      </div>
+    </div>
+    <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+      <div style="display:flex;align-items:center;gap:7px;background:#fff;border:1px solid #f3d9e4;border-radius:999px;padding:6px 12px;font-size:12px;font-weight:700">
+        <span style="{{ statusDot }}"></span><span style="{{ statusTextStyle }}">{{ statusText }}</span>
+      </div>
+      <button onClick="{{ openTutorial }}" style="display:flex;align-items:center;gap:6px;background:#fff;border:1px solid #f3d9e4;border-radius:999px;padding:7px 13px;font-size:12.5px;font-weight:700;font-family:inherit;cursor:pointer;color:#a75c78">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="9.5"/><path d="M12 16v-4.5"/><circle cx="12" cy="8" r=".4" fill="currentColor" stroke="none"/><circle cx="12" cy="8" r="1.1" fill="currentColor" stroke="none"/></svg>Guide
+      </button>
+      <button onClick="{{ syncNow }}" style="display:flex;align-items:center;gap:6px;background:#fff;border:1px solid #f3d9e4;border-radius:999px;padding:7px 13px;font-size:12.5px;font-weight:700;font-family:inherit;cursor:pointer;color:#a75c78">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><path d="M21 3v5h-5"/></svg>Sync
+      </button>
+    </div>
+  </div>
+
+  <!-- HERO COUNTDOWN -->
+  <div style="position:relative;overflow:hidden;background:linear-gradient(135deg,#fce0ea 0%,#fdeae0 54%,#fff6ec 100%);border:1px solid #f6cfdd;border-radius:26px;padding:28px 26px 26px;margin-bottom:16px;box-shadow:0 16px 38px rgba(207,110,150,.14)">
+    <span style="position:absolute;top:20px;left:44%;color:#d9b36a;animation:twinkle 2.4s ease-in-out infinite"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l1.8 6.2L20 10l-6.2 1.8L12 18l-1.8-6.2L4 10l6.2-1.8z"/></svg></span>
+    <span style="position:absolute;bottom:30px;left:38%;color:#e6a6c0;animation:twinkle 3.1s ease-in-out .7s infinite"><svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l1.8 6.2L20 10l-6.2 1.8L12 18l-1.8-6.2L4 10l6.2-1.8z"/></svg></span>
+    <span style="position:absolute;top:26px;right:210px;color:#e6a6c0;animation:floatSlow 5s ease-in-out infinite"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3C8 8 6 12 12 21 18 12 16 8 12 3z"/></svg></span>
+    <div style="display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap">
+      <div style="flex:1;min-width:220px">
+        <div style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:20px;color:#c07d9a;font-weight:600;margin-bottom:2px">counting down to forever</div>
+        <div style="display:flex;align-items:flex-end;gap:14px">
+          <div style="font-family:'Cormorant Garamond',serif;font-weight:700;font-size:clamp(56px,15vw,80px);line-height:.8;color:#ce5c86">{{ countdown }}</div>
+          <div style="padding-bottom:10px">
+            <div style="font-family:'Cormorant Garamond',serif;font-size:23px;font-weight:600;color:#a75c78;line-height:1.05">{{ countdownWord }}</div>
+            <div style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:23px;font-weight:500;color:#a75c78;line-height:1.05">until “I do”</div>
+          </div>
+        </div>
+        <div style="display:inline-flex;align-items:center;gap:8px;margin-top:16px;background:rgba(255,255,255,.72);border:1px solid #f6cfdd;border-radius:999px;padding:6px 14px;font-size:13px;font-weight:700;color:#b95d80">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2.5"/><path d="M3 9h18M8 3v4M16 3v4"/></svg>
+          Saturday · October 22, 2026
+        </div>
+      </div>
+      <div style="position:relative;width:168px;height:132px;flex:none">
+        <div style="position:absolute;inset:0;animation:bob 4.2s ease-in-out infinite">
+          <svg width="168" height="132" viewBox="0 0 168 132" fill="none">
+            <ellipse cx="84" cy="118" rx="52" ry="7" fill="#e9b6c9" opacity=".35"/>
+            <circle cx="66" cy="76" r="34" stroke="#e2c078" stroke-width="8"/>
+            <circle cx="104" cy="76" r="34" stroke="#d9b36a" stroke-width="8"/>
+            <g transform="translate(104,24)">
+              <path d="M-13 10 L0 -14 L13 10 L0 22 Z" fill="#f7ecd2" stroke="#d9b36a" stroke-width="2.5" stroke-linejoin="round"/>
+              <path d="M-13 10 L13 10 M0 -14 L-6 10 M0 -14 L6 10" stroke="#d9b36a" stroke-width="1.6"/>
+            </g>
+          </svg>
+        </div>
+        <div style="position:absolute;top:38px;left:0;width:70px;height:44px;overflow:hidden;transform:rotate(-20deg);pointer-events:none">
+          <div style="width:16px;height:120px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.85),transparent);animation:shimmer 3.6s ease-in-out infinite"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MOTIVATION RIBBON -->
+  <div style="display:flex;align-items:center;gap:13px;background:#fff;border:1px solid #f3d9e4;border-radius:20px;padding:13px 16px;margin-bottom:16px;box-shadow:0 6px 18px rgba(207,110,150,.07)">
+    <span style="{{ motive.avatarStyle }}">{{ motive.initial }}</span>
+    <div style="flex:1;min-width:0">
+      <div style="font-size:10.5px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:#e08bab">{{ motive.name }} says</div>
+      <div style="font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:600;color:#6e4152;line-height:1.25;text-wrap:pretty">{{ motive.text }}</div>
+    </div>
+    <button onClick="{{ refreshMotive }}" title="another note" style="flex:none;background:#fff0f5;border:1px solid #f3d9e4;border-radius:50%;width:36px;height:36px;cursor:pointer;color:#d94f86;display:flex;align-items:center;justify-content:center">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><path d="M21 3v5h-5"/></svg>
+    </button>
+  </div>
+
+  <!-- TODAY -->
+  <sc-if value="{{ hasToday }}" hint-placeholder-val="{{ true }}">
+    <div style="background:linear-gradient(160deg,#fcdbe8,#fde7dd);border:1px solid #f6cfdd;border-radius:24px;padding:20px 20px 22px;margin-bottom:18px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+        <div style="font-family:'Cormorant Garamond',serif;font-weight:700;font-size:23px;color:#b04a74">Today’s glow-up</div>
+        <div style="font-size:13.5px;font-weight:800;color:#c76d92">{{ today.weekday }} · {{ today.label }}</div>
+      </div>
+      <div style="font-size:13px;font-weight:600;color:#bd6c8c;margin-bottom:16px">Tap a circle to check it off when you’ve eaten well or moved today. Tap again to undo — that’s it!</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:13px">
+        <sc-for list="{{ todayPeople }}" as="p" hint-placeholder-count="2">
+          <div style="background:rgba(255,255,255,.66);border:1px solid #f6cfdd;border-radius:17px;padding:14px 13px 15px">
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px">
+              <span style="{{ p.dotStyle }}"></span>
+              <span style="font-weight:800;font-size:15.5px;color:#6e4152">{{ p.name }}</span>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:9px">
+              <button onClick="{{ p.diet.toggle }}" style="{{ p.diet.bigStyle }}">
+                <span style="display:flex;align-items:center;gap:5px;font-size:11px;letter-spacing:.04em;text-transform:uppercase;font-weight:800;opacity:.9"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.5 19 2c1 2 2 4.2 2 8a7 7 0 0 1-7 7z"/><path d="M2 21c0-3 1.9-5.4 5.1-6"/></svg>Diet</span>
+                <span style="{{ p.diet.checkStyle }}"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4 10-11"/></svg></span>
+              </button>
+              <button onClick="{{ p.ex.toggle }}" style="{{ p.ex.bigStyle }}">
+                <span style="display:flex;align-items:center;gap:5px;font-size:11px;letter-spacing:.04em;text-transform:uppercase;font-weight:800;opacity:.9"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>Move</span>
+                <span style="{{ p.ex.checkStyle }}"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4 10-11"/></svg></span>
+              </button>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </sc-if>
+
+  <!-- STAT CARDS -->
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(272px,1fr));gap:14px;margin-bottom:18px">
+    <sc-for list="{{ people }}" as="p" hint-placeholder-count="2">
+      <div style="background:#fff;border:1px solid #f3d9e4;border-radius:22px;padding:18px;box-shadow:0 6px 18px rgba(207,110,150,.07)">
+        <div style="display:flex;align-items:center;gap:9px;margin-bottom:16px">
+          <span style="{{ p.dotStyle }}"></span>
+          <span style="font-family:'Cormorant Garamond',serif;font-weight:700;font-size:21px;color:#6e4152">{{ p.name }}</span>
+          <span style="margin-left:auto;font-size:11.5px;font-weight:700;color:#cf9bb0">{{ p.loggedLabel }}</span>
+        </div>
+        <div style="display:flex;gap:14px;align-items:center">
+          <div style="display:flex;gap:14px;flex:1">
+            <div style="text-align:center">
+              <div style="{{ p.dietRing }}"><div style="width:54px;height:54px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;font-family:'Nunito';font-weight:800;font-size:15px;color:#6e4152">{{ p.dietPct }}</div></div>
+              <div style="font-size:10.5px;color:#c98aa6;margin-top:7px;font-weight:800;letter-spacing:.04em">HEALTHY</div>
+            </div>
+            <div style="text-align:center">
+              <div style="{{ p.exRing }}"><div style="width:54px;height:54px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;font-family:'Nunito';font-weight:800;font-size:15px;color:#6e4152">{{ p.exPct }}</div></div>
+              <div style="font-size:10.5px;color:#c98aa6;margin-top:7px;font-weight:800;letter-spacing:.04em">ACTIVE</div>
+            </div>
+          </div>
+          <div style="border-left:1px solid #f3d9e4;padding-left:14px">
+            <div style="margin-bottom:11px">
+              <div style="display:flex;align-items:center;gap:5px;font-family:'Cormorant Garamond',serif;font-weight:700;font-size:23px;line-height:1;color:#ce5c86">{{ p.dietStreak }}<svg width="15" height="15" viewBox="0 0 32 29" fill="#e07a9b"><path d="M16 28.5C16 28.5 2 20 2 10.2 2 5.1 5.8 2 9.6 2 12.3 2 14.7 3.7 16 6.1 17.3 3.7 19.7 2 22.4 2 26.2 2 30 5.1 30 10.2 30 20 16 28.5 16 28.5Z"/></svg></div>
+              <div style="font-size:11px;color:#c98aa6;font-weight:700">diet streak</div>
+            </div>
+            <div>
+              <div style="display:flex;align-items:center;gap:5px;font-family:'Cormorant Garamond',serif;font-weight:700;font-size:23px;line-height:1;color:#ce5c86">{{ p.exStreak }}<svg width="15" height="15" viewBox="0 0 32 29" fill="#a987c9"><path d="M16 28.5C16 28.5 2 20 2 10.2 2 5.1 5.8 2 9.6 2 12.3 2 14.7 3.7 16 6.1 17.3 3.7 19.7 2 22.4 2 26.2 2 30 5.1 30 10.2 30 20 16 28.5 16 28.5Z"/></svg></div>
+              <div style="font-size:11px;color:#c98aa6;font-weight:700">move streak</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </sc-for>
+  </div>
+
+  <!-- GRID -->
+  <div style="background:#fff;border:1px solid #f3d9e4;border-radius:22px;padding:8px 16px 16px;box-shadow:0 6px 18px rgba(207,110,150,.07)">
+    <div style="display:flex;align-items:center;gap:14px;padding:14px 2px 12px;flex-wrap:wrap">
+      <div style="font-family:'Cormorant Garamond',serif;font-weight:700;font-size:20px;color:#6e4152">Our daily log</div>
+      <div style="display:flex;gap:12px;margin-left:auto;font-size:11.5px;color:#c98aa6;font-weight:700;align-items:center">
+        <span style="display:flex;align-items:center;gap:5px"><span style="{{ dietSwatch }}"></span>Diet</span>
+        <span style="display:flex;align-items:center;gap:5px"><span style="{{ exSwatch }}"></span>Move</span>
+        <span style="color:#dcb7c6">tap to toggle</span>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:74px repeat(4,1fr);gap:5px;margin-bottom:4px">
+      <div></div>
+      <div style="grid-column:span 2;text-align:center;font-weight:800;font-size:12.5px;color:#a75c78;padding:6px;border-radius:9px;background:#fff0f5;display:flex;align-items:center;justify-content:center;gap:6px"><span style="{{ afDot }}"></span>Afrah</div>
+      <div style="grid-column:span 2;text-align:center;font-weight:800;font-size:12.5px;color:#8e6fc0;padding:6px;border-radius:9px;background:#f4f0fb;display:flex;align-items:center;justify-content:center;gap:6px"><span style="{{ safDot }}"></span>Safwan</div>
+    </div>
+    <div style="display:grid;grid-template-columns:74px repeat(4,1fr);gap:5px;margin-bottom:8px">
+      <div style="font-size:10.5px;color:#cf9bb0;font-weight:800;padding-left:4px;align-self:center">DATE</div>
+      <div style="text-align:center;font-size:10.5px;color:#cf9bb0;font-weight:800">Diet</div>
+      <div style="text-align:center;font-size:10.5px;color:#cf9bb0;font-weight:800">Move</div>
+      <div style="text-align:center;font-size:10.5px;color:#cf9bb0;font-weight:800">Diet</div>
+      <div style="text-align:center;font-size:10.5px;color:#cf9bb0;font-weight:800">Move</div>
+    </div>
+
+    <div style="max-height:440px;overflow:auto;padding-right:4px">
+      <sc-for list="{{ days }}" as="d" hint-placeholder-count="14">
+        <div style="{{ d.rowStyle }}">
+          <div style="display:flex;flex-direction:column;justify-content:center;padding-left:4px">
+            <span style="font-weight:800;font-size:13px;color:#6e4152">{{ d.label }}</span>
+            <span style="font-size:10.5px;color:#cf9bb0;font-weight:700">{{ d.weekday }}</span>
+          </div>
+          <div onClick="{{ d.afDiet.toggle }}" style="{{ d.afDiet.style }}">{{ d.afDiet.text }}</div>
+          <div onClick="{{ d.afEx.toggle }}" style="{{ d.afEx.style }}">{{ d.afEx.text }}</div>
+          <div onClick="{{ d.safDiet.toggle }}" style="{{ d.safDiet.style }}">{{ d.safDiet.text }}</div>
+          <div onClick="{{ d.safEx.toggle }}" style="{{ d.safEx.style }}">{{ d.safEx.text }}</div>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+
+  <div style="text-align:center;margin-top:22px">
+    <div style="display:inline-flex;align-items:center;gap:14px;font-size:12px;font-weight:700">
+      <span onClick="{{ openConnect }}" style="color:#c98aa6;cursor:pointer;border-bottom:1px dotted #d9b3c4">Manage sharing</span>
+      <span style="color:#e6cdd7">·</span>
+      <span onClick="{{ exportJson }}" style="color:#c98aa6;cursor:pointer;border-bottom:1px dotted #d9b3c4">Export data</span>
+    </div>
+    <div style="color:#d4a9bb;font-size:11px;margin-top:9px;font-weight:700">Made for our forever · shared &amp; synced automatically</div>
+  </div>
+
+  <!-- REACTION OVERLAY -->
+  <sc-if value="{{ hasReaction }}" hint-placeholder-val="{{ false }}">
+    <div style="position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:80">
+      <sc-for list="{{ heartsHappy }}" as="h" hint-placeholder-count="0">
+        <span style="{{ h.style }}"><svg viewBox="0 0 32 29" width="100%" height="100%" fill="currentColor"><path d="M16 28.5C16 28.5 2 20 2 10.2 2 5.1 5.8 2 9.6 2 12.3 2 14.7 3.7 16 6.1 17.3 3.7 19.7 2 22.4 2 26.2 2 30 5.1 30 10.2 30 20 16 28.5 16 28.5Z"/></svg></span>
+      </sc-for>
+      <sc-for list="{{ petalsSad }}" as="h" hint-placeholder-count="0">
+        <span style="{{ h.style }}"><svg viewBox="0 0 24 24" width="100%" height="100%" fill="currentColor"><path d="M12 3C8 8 6 12 12 21 18 12 16 8 12 3z"/></svg></span>
+      </sc-for>
+      <div style="position:absolute;left:50%;top:38%;transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;animation:popIn .42s cubic-bezier(.2,1.3,.5,1) both">
+        <sc-if value="{{ reactionHappy }}" hint-placeholder-val="{{ true }}">
+          <div style="animation:bobb 1.1s ease-in-out infinite">
+            <svg width="128" height="128" viewBox="0 0 120 120">
+              <path d="M60 104C60 104 18 78 18 46 18 32 28 24 39 24 48 24 55 30 60 38 65 30 72 24 81 24 92 24 102 32 102 46 102 78 60 104 60 104Z" fill="#fbd5e1" stroke="#e07a9b" stroke-width="3.5"/>
+              <circle cx="43" cy="63" r="6" fill="#f6a9c2" opacity=".75"/>
+              <circle cx="77" cy="63" r="6" fill="#f6a9c2" opacity=".75"/>
+              <path d="M38 55 Q45 49 52 55" fill="none" stroke="#5e3a4c" stroke-width="3.4" stroke-linecap="round"/>
+              <path d="M68 55 Q75 49 82 55" fill="none" stroke="#5e3a4c" stroke-width="3.4" stroke-linecap="round"/>
+              <path d="M50 72 Q60 82 70 72" fill="none" stroke="#5e3a4c" stroke-width="3.4" stroke-linecap="round"/>
+              <path d="M92 30l1.4 4.6L98 36l-4.6 1.4L92 42l-1.4-4.6L86 36l4.6-1.4z" fill="#d9b36a"/>
+            </svg>
+          </div>
+        </sc-if>
+        <sc-if value="{{ reactionSad }}" hint-placeholder-val="{{ false }}">
+          <div style="transform-origin:60px 104px;animation:sadSway 1.4s ease-in-out infinite alternate">
+            <svg width="128" height="128" viewBox="0 0 120 120">
+              <path d="M60 104C60 104 18 78 18 46 18 32 28 24 39 24 48 24 55 30 60 38 65 30 72 24 81 24 92 24 102 32 102 46 102 78 60 104 60 104Z" fill="#f3d9e4" stroke="#c98aa6" stroke-width="3.5"/>
+              <path d="M38 60 Q45 55 52 60" fill="none" stroke="#5e3a4c" stroke-width="3.2" stroke-linecap="round"/>
+              <path d="M68 60 Q75 55 82 60" fill="none" stroke="#5e3a4c" stroke-width="3.2" stroke-linecap="round"/>
+              <circle cx="45" cy="64" r="2.6" fill="#5e3a4c"/>
+              <circle cx="75" cy="64" r="2.6" fill="#5e3a4c"/>
+              <path d="M50 80 Q60 72 70 80" fill="none" stroke="#5e3a4c" stroke-width="3.2" stroke-linecap="round"/>
+              <path d="M45 68 C42 73 42 77 45 77 48 77 48 73 45 68Z" fill="#9dc3e6" style="animation:drip 1.5s ease-in-out infinite"/>
+            </svg>
+          </div>
+        </sc-if>
+        <div style="{{ reactionBubble }}">
+          <span style="font-weight:800;color:#d94f86">{{ reactionName }}:</span> {{ reactionMsg }}
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+  <!-- TUTORIAL MODAL -->
+  <sc-if value="{{ showTutorial }}" hint-placeholder-val="{{ false }}">
+    <div style="position:fixed;inset:0;background:rgba(94,58,76,.42);display:flex;align-items:center;justify-content:center;padding:20px;z-index:90" onClick="{{ closeTutorial }}">
+      <div onClick="{{ stop }}" style="background:#fff;border-radius:24px;padding:26px;max-width:500px;width:100%;max-height:88vh;overflow:auto;box-shadow:0 24px 60px rgba(180,90,120,.3)">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:4px">
+          <div style="font-family:'Cormorant Garamond',serif;font-weight:700;font-size:27px;color:#d94f86">How our tracker works</div>
+          <button onClick="{{ closeTutorial }}" style="background:#fff0f5;border:none;border-radius:50%;width:32px;height:32px;font-size:18px;cursor:pointer;color:#c07d9a;line-height:1">×</button>
+        </div>
+        <div style="font-size:13.5px;color:#b07189;margin-bottom:20px;font-weight:600">Little healthy habits, all the way to October 22 — together.</div>
+        <div style="display:flex;flex-direction:column;gap:15px">
+          <div style="display:flex;gap:13px;align-items:flex-start">
+            <span style="flex:none;width:36px;height:36px;border-radius:50%;background:#fce0ea;color:#d94f86;display:flex;align-items:center;justify-content:center"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.5 19 2c1 2 2 4.2 2 8a7 7 0 0 1-7 7z"/><path d="M2 21c0-3 1.9-5.4 5.1-6"/></svg></span>
+            <div><div style="font-weight:800;font-size:15px;color:#6e4152;margin-bottom:2px">Check it off</div><div style="font-size:13.5px;color:#8a6072;line-height:1.55">In <b>Today’s glow-up</b>, tap the circle under <b>Diet</b> if you ate well and <b>Move</b> if you exercised — it fills with a checkmark. Tap again to undo. Empty just means not yet.</div></div>
+          </div>
+          <div style="display:flex;gap:13px;align-items:flex-start">
+            <span style="flex:none;width:36px;height:36px;border-radius:50%;background:#fce0ea;color:#d94f86;display:flex;align-items:center;justify-content:center"><svg width="18" height="18" viewBox="0 0 32 29" fill="currentColor"><path d="M16 28.5C16 28.5 2 20 2 10.2 2 5.1 5.8 2 9.6 2 12.3 2 14.7 3.7 16 6.1 17.3 3.7 19.7 2 22.4 2 26.2 2 30 5.1 30 10.2 30 20 16 28.5 16 28.5Z"/></svg></span>
+            <div><div style="font-weight:800;font-size:15px;color:#6e4152;margin-bottom:2px">Get cheered on</div><div style="font-size:13.5px;color:#8a6072;line-height:1.55">Every check brings a little heart celebration; undoing one gets a gentle, kind pep-talk — no guilt here. Your cheer squad rotates their notes every time.</div></div>
+          </div>
+          <div style="display:flex;gap:13px;align-items:flex-start">
+            <span style="flex:none;width:36px;height:36px;border-radius:50%;background:#fce0ea;color:#d94f86;display:flex;align-items:center;justify-content:center"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2.5"/><path d="M3 9h18M8 3v4M16 3v4"/></svg></span>
+            <div><div style="font-weight:800;font-size:15px;color:#6e4152;margin-bottom:2px">Missed a day? All good</div><div style="font-size:13.5px;color:#8a6072;line-height:1.55">Scroll to any date in <b>Our daily log</b> and tap it in later. Watch your <b>Healthy</b>, <b>Active</b> and streaks climb toward the big day.</div></div>
+          </div>
+          <div style="display:flex;gap:13px;align-items:flex-start">
+            <span style="flex:none;width:36px;height:36px;border-radius:50%;background:#fce0ea;color:#d94f86;display:flex;align-items:center;justify-content:center"><svg width="18" height="18" viewBox="0 0 44 40" fill="none"><circle cx="17" cy="24" r="11" stroke="currentColor" stroke-width="3"/><circle cx="29" cy="24" r="11" stroke="currentColor" stroke-width="3"/></svg></span>
+            <div><div style="font-weight:800;font-size:15px;color:#6e4152;margin-bottom:2px">Shared just for you two</div><div style="font-size:13.5px;color:#8a6072;line-height:1.55">You’re both on the same page automatically — whatever one logs, the other sees. It saves as you tap and refreshes on its own; hit <b>Sync</b> for the latest now.</div></div>
+          </div>
+        </div>
+        <button onClick="{{ closeTutorial }}" style="margin-top:22px;background:#d94f86;color:#fff;border:none;border-radius:13px;padding:13px 24px;font-size:15px;font-weight:800;font-family:inherit;cursor:pointer">Let’s glow</button>
+      </div>
+    </div>
+  </sc-if>
+
+  <!-- CONNECT MODAL -->
+  <sc-if value="{{ showConnect }}" hint-placeholder-val="{{ false }}">
+    <div style="position:fixed;inset:0;background:rgba(94,58,76,.42);display:flex;align-items:center;justify-content:center;padding:20px;z-index:90" onClick="{{ closeConnect }}">
+      <div onClick="{{ stop }}" style="background:#fff;border-radius:22px;padding:26px;max-width:460px;width:100%;box-shadow:0 24px 60px rgba(180,90,120,.3)">
+        <div style="font-family:'Cormorant Garamond',serif;font-weight:700;font-size:24px;color:#d94f86;margin-bottom:6px">Shared database</div>
+        <div style="font-size:13px;color:#a97488;line-height:1.5;margin-bottom:18px;font-weight:600">You’re already sharing one automatically. To use a different one: click <b>Create</b> and send the ID to your partner, or paste an ID they shared.</div>
+
+        <sc-if value="{{ connected }}" hint-placeholder-val="{{ false }}">
+          <div style="background:#fff0f5;border:1px solid #f6cfdd;border-radius:12px;padding:13px 14px;margin-bottom:16px">
+            <div style="font-size:11px;font-weight:800;color:#d94f86;letter-spacing:.04em;text-transform:uppercase;margin-bottom:6px">Your database ID — share this</div>
+            <div style="display:flex;gap:8px;align-items:center">
+              <code style="flex:1;font-size:13px;background:#fff;border:1px solid #f3d9e4;border-radius:8px;padding:8px 10px;overflow:auto;white-space:nowrap;color:#6e4152">{{ cfg.binId }}</code>
+              <button onClick="{{ copyId }}" style="background:#d94f86;color:#fff;border:none;border-radius:8px;padding:9px 13px;font-size:12.5px;font-weight:800;font-family:inherit;cursor:pointer">Copy</button>
+            </div>
+          </div>
+        </sc-if>
+
+        <button onClick="{{ createNew }}" style="width:100%;background:#7a4a5c;color:#fff;border:none;border-radius:12px;padding:13px;font-size:14px;font-weight:800;font-family:inherit;cursor:pointer;margin-bottom:16px">{{ createBtnLabel }}</button>
+
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px;color:#d4a9bb;font-size:11px;font-weight:800">
+          <span style="flex:1;height:1px;background:#f3d9e4"></span>OR JOIN AN EXISTING ONE<span style="flex:1;height:1px;background:#f3d9e4"></span>
+        </div>
+
+        <label style="font-size:12px;font-weight:800;color:#a75c78">Database ID
+          <input value="{{ cfg.binId }}" onInput="{{ onBinId }}" placeholder="paste the ID your partner shared" style="width:100%;margin-top:5px;padding:10px 12px;border:1px solid #f6cfdd;border-radius:10px;font-size:14px;font-family:inherit;font-weight:600;color:#6e4152">
+        </label>
+        <sc-if value="{{ cfgError }}" hint-placeholder-val="{{ false }}">
+          <div style="margin-top:12px;font-size:12.5px;color:#b4442f;background:#fbecea;border-radius:9px;padding:9px 11px">{{ cfgError }}</div>
+        </sc-if>
+        <div style="display:flex;gap:10px;margin-top:18px;align-items:center">
+          <button onClick="{{ saveConfig }}" style="background:#d94f86;color:#fff;border:none;border-radius:12px;padding:12px 20px;font-size:14px;font-weight:800;font-family:inherit;cursor:pointer">Join &amp; sync</button>
+          <button onClick="{{ closeConnect }}" style="background:none;border:none;color:#b07189;font-size:14px;font-weight:800;font-family:inherit;cursor:pointer;padding:12px">Close</button>
+          <sc-if value="{{ connected }}" hint-placeholder-val="{{ false }}">
+            <button onClick="{{ disconnect }}" style="margin-left:auto;background:none;border:none;color:#b4442f;font-size:13px;font-weight:800;font-family:inherit;cursor:pointer;padding:12px">Disconnect</button>
+          </sc-if>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:900,&quot;height&quot;:960},&quot;dietColor&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#e07a9b&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Colors&quot;,&quot;options&quot;:[&quot;#e07a9b&quot;,&quot;#e8578f&quot;,&quot;#d98ba6&quot;,&quot;#f2809a&quot;]},&quot;exerciseColor&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#a987c9&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Colors&quot;,&quot;options&quot;:[&quot;#a987c9&quot;,&quot;#b57fd6&quot;,&quot;#9b84d4&quot;,&quot;#c79ae0&quot;]}}">
+class Component extends DCLogic {
+  state = {
+    data: { entries: {} },
+    cfg: { binId:'6a4bb7ebda38895dfe357535' },
+    showConnect:false, showTutorial:false, status:'idle', lastSync:null, cfgError:'', creating:false,
+    reaction:null, motive:null
+  };
+
+  API='https://api.jsonbin.io/v3';
+  MASTER='$2a$10$G5cqQw/dsZ9S4MINj5QU1.q6dWGFHaInf3JWOyJY4axj.QISvAiUi';
+  ACCESS='$2a$10$exHDVjMj5tL77QKslwz1gesITnICHjExloBe8jXvjQ7AMihMHCrOO';
+
+  START='2026-07-06'; END='2026-10-22'; WED=[2026,9,22];
+  DIET(){ return this.props.dietColor || '#e07a9b'; }
+  EX(){ return this.props.exerciseColor || '#a987c9'; }
+  AF='#db6e97'; SAF='#9b84d4';
+
+  CHARS=[
+    {n:'Rosie',c:'#f6c3d2',t:'#c7648a'},{n:'Petal',c:'#f3d2ea',t:'#b06bb0'},
+    {n:'Belle',c:'#e7d6f3',t:'#8e6fc0'},{n:'Cupid',c:'#fbd8ce',t:'#ce7a5c'},
+    {n:'Grace',c:'#f5e3c0',t:'#b7913f'},{n:'Wren',c:'#d8e9dc',t:'#4f8a67'},
+    {n:'Coco',c:'#f9d6dd',t:'#cf5f7e'},{n:'Fleur',c:'#e9dcf6',t:'#7f63b8'}
+  ];
+  HAPPY=[
+    "Yes! One step closer to the aisle.","Look at you glow.","Your future self is beaming.",
+    "That dress is going to love this.","Power couple energy, confirmed.","October 22 approves.",
+    "Consistency looks beautiful on you.","A little win worth celebrating.","You're absolutely radiant today.",
+    "That's a wholehearted yes.","So proud of you — keep going.","Another petal on the path to forever.",
+    "Wedding glow, activated.","Strong today, stunning on the day.","Small steps, big “I do.”",
+    "You two are unstoppable.","Beautifully done, my dear.","This is how memories are made."
+  ];
+  SAD=[
+    "It's okay — tomorrow is a fresh start.","No guilt here. Simply begin again.",
+    "One soft day won't dim your glow.","Rest is part of the journey too.","Be gentle with yourself today.",
+    "Deep breath — there's still time.","We fall, we rise, we marry.","Tomorrow is a brand-new petal.",
+    "Progress isn't perfect, and that's alright.","Still proud of you, always.","A kinder day is coming.",
+    "You've got this, together."
+  ];
+  MOTS=[
+    "{days} days until forever — you're doing beautifully.","Every healthy day is a love letter to future you.",
+    "Glow now, sparkle on the aisle.","Strong bodies, soft hearts — {days} days to go.",
+    "The best gift for each other is showing up daily.","Imagine the wedding photos, and keep going.",
+    "Little habits, big “I do.”","You're not just planning a wedding, you're building a life.",
+    "Move, nourish, love — repeat.","{days} sunsets until you're married.",
+    "Consistency is quietly romantic.","Future Mr & Mrs, this is your season.",
+    "One healthy choice at a time, together.","Slow progress is still progress.",
+    "Your best selves are getting ready.","Today's effort is tomorrow's memory."
+  ];
+
+  avatarStyle(ch){ return `flex:none;width:46px;height:46px;border-radius:50%;background:${ch.c};color:${ch.t};display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-weight:700;font-size:24px;border:1.5px solid #fff;box-shadow:0 3px 9px rgba(207,110,150,.16);animation:bob 3s ease-in-out infinite`; }
+
+  componentDidMount(){
+    let cfg={...this.state.cfg};
+    try{
+      const b=localStorage.getItem('ht.binId'); if(b) cfg.binId=b;
+      const d=localStorage.getItem('ht.data'); if(d) this.setState({data:JSON.parse(d)});
+    }catch(e){}
+    this.setState({cfg, motive:this.pickMotive()});
+    setTimeout(()=>{ if(cfg.binId) this.fetchRemote(); }, 60);
+    this._debTimer=null;
+    this._pollTimer=setInterval(()=>{ if(this.state.cfg.binId && this.state.status!=='saving') this.fetchRemote(true); }, 20000);
+    this._motTimer=setInterval(()=>this.setState({motive:this.pickMotive()}), 14000);
+  }
+  componentWillUnmount(){ clearInterval(this._pollTimer); clearInterval(this._motTimer); clearTimeout(this._debTimer); clearTimeout(this._reactTimer); }
+
+  isConfigured(){ return !!this.state.cfg.binId; }
+
+  daysUntilWed(){ const w=new Date(this.WED[0],this.WED[1],this.WED[2]); const n=new Date(); const t=new Date(n.getFullYear(),n.getMonth(),n.getDate()); return Math.max(0,Math.round((w-t)/86400000)); }
+
+  pickMotive(){
+    const c=this.CHARS[Math.floor(Math.random()*this.CHARS.length)];
+    let mi=Math.floor(Math.random()*this.MOTS.length);
+    if(this._lastMot!==undefined && mi===this._lastMot) mi=(mi+1)%this.MOTS.length;
+    this._lastMot=mi;
+    const days=this.daysUntilWed();
+    return { name:c.n, initial:c.n[0], avatarStyle:this.avatarStyle(c), text:this.MOTS[mi].replace(/\{days\}/g,days) };
+  }
+  refreshMotive=()=>this.setState({motive:this.pickMotive()});
+
+  triggerReaction(mood){
+    clearTimeout(this._reactTimer);
+    const c=this.CHARS[Math.floor(Math.random()*this.CHARS.length)];
+    const pool=mood==='happy'?this.HAPPY:this.SAD;
+    const msg=pool[Math.floor(Math.random()*pool.length)];
+    const palette=['#e07a9b','#a987c9','#d9b36a','#f6a9c2','#ce5c86','#c79ae0'];
+    const petalPal=['#e9c6d6','#dcc7ee','#cddccf','#f0d3c6'];
+    const n=mood==='happy'?20:9;
+    const hearts=Array.from({length:n},()=>{
+      const left=Math.random()*100, size=14+Math.random()*24, dur=(mood==='happy'?1.6:2.0)+Math.random()*1.1, delay=Math.random()*0.5;
+      const color=(mood==='happy'?palette:petalPal)[Math.floor(Math.random()*(mood==='happy'?palette.length:petalPal.length))];
+      const anim=mood==='happy'?'floatUp':'fallDown';
+      const from=mood==='happy'?'bottom:-36px':'top:-24px';
+      return { style:`position:absolute;left:${left}%;${from};width:${size}px;height:${size}px;color:${color};animation:${anim} ${dur}s ease-in ${delay}s forwards` };
+    });
+    const rid=(this._rid=(this._rid||0)+1);
+    const reaction={ id:rid, mood, name:c.n, msg, hearts };
+    this.setState({reaction:null}, ()=>this.setState({reaction}));
+    this._reactTimer=setTimeout(()=>this.setState({reaction:null}), 2200);
+  }
+
+  dateList(){ const out=[]; let cur=new Date(this.START+'T00:00:00'); const end=new Date(this.END+'T00:00:00');
+    while(cur<=end){ out.push(this.key(cur)); cur.setDate(cur.getDate()+1); } return out; }
+  key(d){ return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); }
+  todayStr(){ return this.key(new Date()); }
+  fmt(k){ const [y,m,dd]=k.split('-').map(Number); const d=new Date(y,m-1,dd);
+    const mo=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][m-1];
+    const wd=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'][d.getDay()]; return { label:mo+' '+dd, weekday:wd }; }
+
+  getVal(k,person,field){ const e=this.state.data.entries[k]; return e&&e[person]?e[person][field]:undefined; }
+
+  toggle(k,person,field){
+    const done=this.getVal(k,person,field)===1;
+    const next=done?0:1;
+    const data={...this.state.data, entries:{...this.state.data.entries}};
+    const day={...(data.entries[k]||{})};
+    day[person]={...(day[person]||{}), [field]:next};
+    data.entries[k]=day;
+    this.setState({data});
+    try{ localStorage.setItem('ht.data', JSON.stringify(data)); }catch(e){}
+    this.triggerReaction(next===1?'happy':'sad');
+    this.debouncedPush();
+  }
+
+  debouncedPush(){ if(!this.isConfigured()) return; clearTimeout(this._debTimer); this._debTimer=setTimeout(()=>this.pushRemote(), 600); }
+
+  async createBin(){
+    this.setState({creating:true, cfgError:'', status:'saving'});
+    try{
+      const res=await fetch(this.API+'/b',{ method:'POST',
+        headers:{'Content-Type':'application/json','X-Master-Key':this.MASTER,'X-Bin-Name':'wedding-glowup','X-Bin-Private':'true'},
+        body:JSON.stringify(this.state.data&&this.state.data.entries?this.state.data:{entries:{}}) });
+      const j=await res.json();
+      if(res.ok && j.metadata && j.metadata.id){
+        const binId=j.metadata.id;
+        try{ localStorage.setItem('ht.binId', binId); }catch(e){}
+        this.setState({cfg:{binId}, creating:false, status:'synced', lastSync:Date.now(), showConnect:false, cfgError:''});
+      } else { this.setState({creating:false, status:'error', cfgError:'Could not create database. '+(j.message||'')}); }
+    }catch(e){ this.setState({creating:false, status:'error', cfgError:'Network error creating database.'}); }
+  }
+
+  async fetchRemote(silent){
+    const c=this.state.cfg; if(!c.binId) return;
+    if(!silent) this.setState({status:'syncing'});
+    try{
+      const res=await fetch(`${this.API}/b/${c.binId}/latest`,{ headers:{'X-Master-Key':this.MASTER,'X-Bin-Meta':'false'} });
+      if(res.ok){
+        let data=await res.json();
+        if(data && data.record) data=data.record;
+        if(!data || typeof data!=='object') data={entries:{}};
+        if(!data.entries) data.entries={};
+        this.setState({data, status:'synced', lastSync:Date.now(), cfgError:''});
+        try{ localStorage.setItem('ht.data', JSON.stringify(data)); }catch(e){}
+      } else if(res.status===404){ this.setState({status:'error', cfgError:'Database not found. Check the ID or create a new one.'}); }
+      else { this.setState({status:'error', cfgError:'Sync failed ('+res.status+').'}); }
+    }catch(e){ this.setState({status:'error'}); }
+  }
+
+  async pushRemote(){
+    const c=this.state.cfg; if(!c.binId) return;
+    this.setState({status:'saving'});
+    try{
+      const res=await fetch(`${this.API}/b/${c.binId}`,{ method:'PUT',
+        headers:{'Content-Type':'application/json','X-Master-Key':this.MASTER,'X-Bin-Versioning':'false'},
+        body:JSON.stringify(this.state.data) });
+      if(res.ok){ this.setState({status:'synced', lastSync:Date.now(), cfgError:''}); }
+      else { this.setState({status:'error', cfgError:'Save failed ('+res.status+').'}); }
+    }catch(e){ this.setState({status:'error'}); }
+  }
+
+  openTutorial=()=>this.setState({showTutorial:true});
+  closeTutorial=()=>this.setState({showTutorial:false});
+  openConnect=()=>this.setState({showConnect:true, cfgError:''});
+  closeConnect=()=>this.setState({showConnect:false});
+  stop=(e)=>{ e.stopPropagation(); };
+  onBinId=(e)=>this.setState({cfg:{...this.state.cfg,binId:e.target.value.trim()}});
+  createNew=()=>this.createBin();
+  saveConfig=()=>{ const c=this.state.cfg; if(!c.binId){ this.setState({cfgError:'Enter a Database ID, or create a new one.'}); return; }
+    try{ localStorage.setItem('ht.binId', c.binId); }catch(e){} this.setState({showConnect:false, cfgError:''}); this.fetchRemote(); };
+  copyId=()=>{ try{ navigator.clipboard.writeText(this.state.cfg.binId); }catch(e){} };
+  disconnect=()=>{ try{ localStorage.removeItem('ht.binId'); }catch(e){} this.setState({cfg:{binId:''}, status:'idle', showConnect:false}); };
+  syncNow=()=>{ if(this.isConfigured()) this.fetchRemote(); };
+  exportJson=()=>{ const blob=new Blob([JSON.stringify(this.state.data,null,2)],{type:'application/json'});
+    const url=URL.createObjectURL(blob); const a=document.createElement('a'); a.href=url; a.download='wedding-glowup.json'; a.click(); setTimeout(()=>URL.revokeObjectURL(url),1000); };
+
+  cell(k,person,field,color){
+    const on=this.getVal(k,person,field)===1;
+    return {
+      done:on,
+      text: on?'✓':'',
+      toggle: ()=>this.toggle(k,person,field),
+      style:`height:36px;display:flex;align-items:center;justify-content:center;border-radius:10px;cursor:pointer;font-weight:900;font-size:16px;font-family:'Nunito';background:${on?color:'#fff7fa'};color:#fff;border:1.5px solid ${on?color:'#f3d9e4'};user-select:none;transition:all .15s`,
+      bigStyle:`display:flex;flex-direction:column;align-items:center;justify-content:center;gap:11px;height:104px;border-radius:16px;cursor:pointer;font-family:inherit;border:1.5px solid ${on?color:'#f6cfdd'};background:${on?color:'#fff'};color:${on?'#fff':'#c98aa6'};transition:all .18s;box-shadow:${on?'0 8px 18px '+color+'55':'none'}`,
+      checkStyle: on
+        ? `width:44px;height:44px;border-radius:50%;background:#fff;color:${color};display:flex;align-items:center;justify-content:center;animation:checkPop .32s ease-out`
+        : `width:44px;height:44px;border-radius:50%;background:transparent;border:2px dashed #e3b5c8;color:transparent;display:flex;align-items:center;justify-content:center;animation:tapPulse 1.9s ease-in-out infinite`
+    };
+  }
+
+  stats(person){
+    const days=this.dateList(); const today=this.todayStr();
+    const elapsed=days.filter(k=>k<=today); const denom=elapsed.length||1;
+    let dOne=0,eOne=0;
+    elapsed.forEach(k=>{ if(this.getVal(k,person,'diet')===1)dOne++; if(this.getVal(k,person,'exercise')===1)eOne++; });
+    const dietPct=Math.round(dOne/denom*100), exPct=Math.round(eOne/denom*100);
+    const streak=(field)=>{ let s=0; for(let i=elapsed.length-1;i>=0;i--){ if(this.getVal(elapsed[i],person,field)===1)s++; else break; } return s; };
+    return { dietPct, exPct, dietStreak:streak('diet'), exStreak:streak('exercise'), elapsed:elapsed.length };
+  }
+
+  ring(pct,color){ const deg=Math.max(0,Math.min(100,pct))*3.6; return `width:78px;height:78px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:conic-gradient(${color} ${deg}deg, #fbe1ec 0deg)`; }
+
+  personObj(person,name,dot){
+    const s=this.stats(person);
+    return { name, key:person,
+      dotStyle:`display:inline-block;width:11px;height:11px;border-radius:50%;background:${dot}`,
+      dietPct:s.dietPct+'%', exPct:s.exPct+'%',
+      dietRing:this.ring(s.dietPct,this.DIET()), exRing:this.ring(s.exPct,this.EX()),
+      dietStreak:s.dietStreak, exStreak:s.exStreak, loggedLabel:'day '+s.elapsed+' of '+this.dateList().length };
+  }
+
+  renderVals(){
+    const list=this.dateList(); const today=this.todayStr();
+    const days=list.map(k=>{ const f=this.fmt(k); const isT=k===today;
+      return { label:f.label, weekday:f.weekday,
+        rowStyle:`display:grid;grid-template-columns:74px repeat(4,1fr);gap:5px;padding:5px 4px;border-radius:12px;${isT?'background:#fff0f5;box-shadow:inset 0 0 0 1.5px '+this.DIET():''}`,
+        afDiet:this.cell(k,'af','diet',this.DIET()), afEx:this.cell(k,'af','exercise',this.EX()),
+        safDiet:this.cell(k,'saf','diet',this.DIET()), safEx:this.cell(k,'saf','exercise',this.EX()) }; });
+
+    const st=this.state.status; const connected=this.isConfigured();
+    const idleLabel = connected ? ['Synced','#2e9e6b'] : ['Local only','#c9a227'];
+    const statusMap={ idle:idleLabel, synced:['Synced','#2e9e6b'], saving:['Saving…','#d94f86'], syncing:['Syncing…','#d94f86'], error:['Sync error','#b4442f'] };
+    const [statusText,statusColor]=statusMap[st]||statusMap.idle;
+    const pulsing = (st==='saving'||st==='syncing');
+
+    const af=this.personObj('af','Afrah',this.AF), saf=this.personObj('saf','Safwan',this.SAF);
+    const hasToday=list.includes(today); const tf=hasToday?this.fmt(today):null;
+    const todayPeople=hasToday?[
+      { name:'Afrah', dotStyle:`display:inline-block;width:10px;height:10px;border-radius:50%;background:${this.AF}`, diet:this.cell(today,'af','diet',this.DIET()), ex:this.cell(today,'af','exercise',this.EX()) },
+      { name:'Safwan', dotStyle:`display:inline-block;width:10px;height:10px;border-radius:50%;background:${this.SAF}`, diet:this.cell(today,'saf','diet',this.DIET()), ex:this.cell(today,'saf','exercise',this.EX()) }
+    ]:[];
+
+    const r=this.state.reaction; const days2wed=this.daysUntilWed();
+    return {
+      days, people:[af,saf],
+      hasToday, today: tf?{label:tf.label,weekday:tf.weekday}:{}, todayPeople,
+      countdown: days2wed, countdownWord: days2wed===1?'day':'days',
+      motive: this.state.motive || {name:'Cupid',initial:'C',avatarStyle:this.avatarStyle(this.CHARS[3]),text:'Let’s glow into forever.'},
+      refreshMotive:this.refreshMotive,
+      showConnect:this.state.showConnect, showTutorial:this.state.showTutorial, cfg:this.state.cfg, cfgError:this.state.cfgError,
+      creating:this.state.creating, createBtnLabel:this.state.creating?'Creating…':'Create new shared database',
+      connected, showBanner:(!connected),
+      statusText, statusTextStyle:`color:${statusColor}`,
+      statusDot:`display:inline-block;width:8px;height:8px;border-radius:50%;background:${statusColor};${pulsing?'animation:ht-pulse 1s infinite':''}`,
+      connectBtnLabel:connected?'Shared':'Connect',
+      connectBtnStyle:`display:flex;align-items:center;gap:6px;background:${connected?'#2e9e6b':'#d94f86'};color:#fff;border:none;border-radius:999px;padding:8px 15px;font-size:12.5px;font-weight:800;font-family:inherit;cursor:pointer`,
+      dietSwatch:`display:inline-block;width:11px;height:11px;border-radius:4px;background:${this.DIET()}`,
+      exSwatch:`display:inline-block;width:11px;height:11px;border-radius:4px;background:${this.EX()}`,
+      afDot:`display:inline-block;width:9px;height:9px;border-radius:50%;background:${this.AF}`,
+      safDot:`display:inline-block;width:9px;height:9px;border-radius:50%;background:${this.SAF}`,
+      hasReaction:!!r, reactionHappy:!!r&&r.mood==='happy', reactionSad:!!r&&r.mood==='sad',
+      heartsHappy:(r&&r.mood==='happy')?r.hearts:[], petalsSad:(r&&r.mood==='sad')?r.hearts:[],
+      reactionName:r?r.name:'', reactionMsg:r?r.msg:'',
+      reactionBubble:`margin-top:14px;background:#fff;border:1.5px solid ${r&&r.mood==='sad'?'#e0cff0':'#f6cfdd'};border-radius:18px;padding:11px 18px;font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:600;color:#6e4152;max-width:300px;text-align:center;box-shadow:0 10px 26px rgba(180,90,120,.2);text-wrap:pretty`,
+      openTutorial:this.openTutorial, closeTutorial:this.closeTutorial,
+      openConnect:this.openConnect, closeConnect:this.closeConnect, stop:this.stop,
+      saveConfig:this.saveConfig, disconnect:this.disconnect, syncNow:this.syncNow, exportJson:this.exportJson,
+      onBinId:this.onBinId, createNew:this.createNew, copyId:this.copyId
+    };
+  }
+}
+</script>
+</body>
+</html>
