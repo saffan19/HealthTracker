@@ -8,8 +8,9 @@
 <body>
 <x-dc>
 <helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23fce0ea'/%3E%3Ccircle cx='26' cy='40' r='13' fill='none' stroke='%23e2c078' stroke-width='4.5'/%3E%3Ccircle cx='40' cy='40' r='13' fill='none' stroke='%23d9b36a' stroke-width='4.5'/%3E%3Cpath d='M40 10l5 8-5 6-5-6 5-8z' fill='%23f7ecd2' stroke='%23d9b36a' stroke-width='2.5' stroke-linejoin='round'/%3E%3C/svg%3E">
-<title>Afrah & Safwan · Wedding Glow-Up</title>
+<title>Afrah & Safwan · Wedding Prep</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -38,7 +39,7 @@
 </style>
 </helmet>
 
-<div data-screen-label="Wedding Glow-Up" style="min-height:100vh;padding:22px 16px 72px;max-width:900px;margin:0 auto;position:relative">
+<div data-screen-label="Wedding Prep" style="min-height:100vh;padding:22px 16px 72px;max-width:900px;margin:0 auto;position:relative">
 
   <!-- TOP BAR -->
   <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:20px">
@@ -48,22 +49,23 @@
       </span>
       <div>
         <div style="font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:600;font-size:24px;line-height:.95;color:#c7648a">Afrah &amp; Safwan</div>
-        <div style="font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:#c98aa6;font-weight:700;margin-top:2px">Wedding Glow-Up</div>
+        <div style="font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:#c98aa6;font-weight:700;margin-top:2px">Wedding Prep</div>
       </div>
     </div>
     <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
       <div style="display:flex;align-items:center;gap:7px;background:#fff;border:1px solid #f3d9e4;border-radius:999px;padding:6px 12px;font-size:12px;font-weight:700">
         <span style="{{ statusDot }}"></span><span style="{{ statusTextStyle }}">{{ statusText }}</span>
       </div>
-      <button onClick="{{ openTutorial }}" style="display:flex;align-items:center;gap:6px;background:#fff;border:1px solid #f3d9e4;border-radius:999px;padding:7px 13px;font-size:12.5px;font-weight:700;font-family:inherit;cursor:pointer;color:#a75c78">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="9.5"/><path d="M12 16v-4.5"/><circle cx="12" cy="8" r=".4" fill="currentColor" stroke="none"/><circle cx="12" cy="8" r="1.1" fill="currentColor" stroke="none"/></svg>Guide
-      </button>
       <button onClick="{{ syncNow }}" style="display:flex;align-items:center;gap:6px;background:#fff;border:1px solid #f3d9e4;border-radius:999px;padding:7px 13px;font-size:12.5px;font-weight:700;font-family:inherit;cursor:pointer;color:#a75c78">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><path d="M21 3v5h-5"/></svg>Sync
+      </button>
+      <button onClick="{{ toggleMenu }}" title="menu" style="display:flex;align-items:center;justify-content:center;background:#fff;border:1px solid #f3d9e4;border-radius:999px;width:40px;height:34px;cursor:pointer;color:#a75c78">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
       </button>
     </div>
   </div>
 
+  <sc-if value="{{ isDashboard }}" hint-placeholder-val="{{ true }}">
   <!-- HERO COUNTDOWN -->
   <div style="position:relative;overflow:hidden;background:linear-gradient(135deg,#fce0ea 0%,#fdeae0 54%,#fff6ec 100%);border:1px solid #f6cfdd;border-radius:26px;padding:28px 26px 26px;margin-bottom:16px;box-shadow:0 16px 38px rgba(207,110,150,.14)">
     <span style="position:absolute;top:20px;left:44%;color:#d9b36a;animation:twinkle 2.4s ease-in-out infinite"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l1.8 6.2L20 10l-6.2 1.8L12 18l-1.8-6.2L4 10l6.2-1.8z"/></svg></span>
@@ -81,7 +83,7 @@
         </div>
         <div style="display:inline-flex;align-items:center;gap:8px;margin-top:16px;background:rgba(255,255,255,.72);border:1px solid #f6cfdd;border-radius:999px;padding:6px 14px;font-size:13px;font-weight:700;color:#b95d80">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2.5"/><path d="M3 9h18M8 3v4M16 3v4"/></svg>
-          Saturday · October 22, 2026
+          {{ weddingDateLabel }}
         </div>
       </div>
       <div style="position:relative;width:168px;height:132px;flex:none">
@@ -119,7 +121,7 @@
   <sc-if value="{{ hasToday }}" hint-placeholder-val="{{ true }}">
     <div style="background:linear-gradient(160deg,#fcdbe8,#fde7dd);border:1px solid #f6cfdd;border-radius:24px;padding:20px 20px 22px;margin-bottom:18px">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
-        <div style="font-family:'Cormorant Garamond',serif;font-weight:700;font-size:23px;color:#b04a74">Today’s glow-up</div>
+        <div style="font-family:'Cormorant Garamond',serif;font-weight:700;font-size:23px;color:#b04a74">Today’s check-in</div>
         <div style="font-size:13.5px;font-weight:800;color:#c76d92">{{ today.weekday }} · {{ today.label }}</div>
       </div>
       <div style="font-size:13px;font-weight:600;color:#bd6c8c;margin-bottom:16px">Tap a circle to check it off when you’ve eaten well or moved today. Tap again to undo — that’s it!</div>
@@ -229,6 +231,85 @@
     </div>
     <div style="color:#d4a9bb;font-size:11px;margin-top:9px;font-weight:700">Made for our forever · shared &amp; synced automatically</div>
   </div>
+  </sc-if>
+
+  <!-- TO-DO LIST -->
+  <sc-if value="{{ isTodos }}" hint-placeholder-val="{{ false }}">
+    <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:10px;margin-bottom:14px">
+      <div>
+        <div style="font-family:'Cormorant Garamond',serif;font-weight:700;font-size:27px;color:#b04a74;line-height:1">Our to-do list</div>
+        <div style="font-size:12.5px;font-weight:700;color:#c98aa6;margin-top:3px">{{ todoDoneCount }} of {{ todoCount }} done</div>
+      </div>
+      <button onClick="{{ goDashboard }}" style="display:flex;align-items:center;gap:6px;background:#fff;border:1px solid #f3d9e4;border-radius:999px;padding:8px 14px;font-size:12.5px;font-weight:700;font-family:inherit;cursor:pointer;color:#a75c78">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>Dashboard
+      </button>
+    </div>
+
+    <div style="background:#fff;border:1px solid #f3d9e4;border-radius:18px;padding:14px;margin-bottom:16px;box-shadow:0 6px 18px rgba(207,110,150,.07)">
+      <input value="{{ newTodo }}" onInput="{{ onNewTodo }}" onKeyDown="{{ onTodoKey }}" placeholder="Add a task — e.g. Book the florist" style="width:100%;padding:12px 14px;border:1px solid #f3d9e4;border-radius:12px;font-size:15px;font-family:inherit;font-weight:600;color:#5e3a4c;margin-bottom:11px">
+      <div style="font-size:11px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:#cf9bb0;margin-bottom:7px">Who’s it for?</div>
+      <div style="display:flex;gap:8px;margin-bottom:12px">
+        <sc-for list="{{ tagChips }}" as="c" hint-placeholder-count="3">
+          <button onClick="{{ c.onClick }}" style="{{ c.style }}">{{ c.label }}</button>
+        </sc-for>
+      </div>
+      <button onClick="{{ addTodo }}" style="width:100%;background:#d94f86;color:#fff;border:none;border-radius:12px;padding:13px;font-size:15px;font-weight:800;font-family:inherit;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:7px">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>Add task
+      </button>
+    </div>
+
+    <sc-if value="{{ hasTodos }}" hint-placeholder-val="{{ true }}">
+      <div style="display:flex;flex-direction:column;gap:9px">
+        <sc-for list="{{ todos }}" as="t" hint-placeholder-count="3">
+          <div style="display:flex;align-items:center;gap:11px;background:#fff;border:1px solid #f3d9e4;border-radius:14px;padding:10px 10px 10px 12px;box-shadow:0 3px 10px rgba(207,110,150,.05)">
+            <span onClick="{{ t.toggle }}" style="{{ t.checkStyle }}"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4 10-11"/></svg></span>
+            <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:5px">
+              <span style="{{ t.textStyle }}">{{ t.text }}</span>
+              <span style="{{ t.tagStyle }}">{{ t.tagLabel }}</span>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:1px;flex:none">
+              <button onClick="{{ t.moveUp }}" style="{{ t.upStyle }}"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 15l6-6 6 6"/></svg></button>
+              <button onClick="{{ t.moveDown }}" style="{{ t.downStyle }}"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></button>
+            </div>
+            <button onClick="{{ t.remove }}" style="flex:none;width:30px;height:30px;border-radius:50%;border:none;background:#fdeef3;color:#c98aa6;font-size:18px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center">×</button>
+          </div>
+        </sc-for>
+      </div>
+    </sc-if>
+    <sc-if value="{{ noTodos }}" hint-placeholder-val="{{ false }}">
+      <div style="text-align:center;padding:36px 20px;background:#fff;border:1px dashed #f0cddb;border-radius:18px;color:#c98aa6">
+        <div style="display:flex;justify-content:center;margin-bottom:12px;animation:floatSlow 4s ease-in-out infinite">
+          <svg width="52" height="46" viewBox="0 0 44 40" fill="none"><circle cx="17" cy="24" r="12" stroke="#e2c078" stroke-width="3.5"/><circle cx="29" cy="24" r="12" stroke="#d9b36a" stroke-width="3.5"/><path d="M29 3l4 6-4 5-4-5 4-6z" fill="#f7ecd2" stroke="#d9b36a" stroke-width="2" stroke-linejoin="round"/></svg>
+        </div>
+        <div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:600;color:#a75c78">No tasks yet</div>
+        <div style="font-size:13px;font-weight:600;margin-top:4px">Add your first one above to start planning.</div>
+      </div>
+    </sc-if>
+  </sc-if>
+
+  <!-- MENU -->
+  <sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ closeMenu }}" style="position:fixed;inset:0;z-index:85">
+      <div onClick="{{ stop }}" style="position:absolute;top:64px;right:14px;width:230px;max-width:calc(100vw - 28px);background:#fff;border:1px solid #f3d9e4;border-radius:16px;padding:8px;box-shadow:0 18px 44px rgba(180,90,120,.26)">
+        <button onClick="{{ goDashboard }}" style="{{ menuDashStyle }}">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg>Dashboard
+        </button>
+        <button onClick="{{ goTodos }}" style="{{ menuTodoStyle }}">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6h11M9 12h11M9 18h11"/><path d="M4 6l1 1 2-2M4 12l1 1 2-2M4 18l1 1 2-2"/></svg>To-do list
+        </button>
+        <div style="height:1px;background:#f3e2ea;margin:6px 8px"></div>
+        <button onClick="{{ guideFromMenu }}" style="{{ menuPlainStyle }}">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9.5"/><path d="M12 16v-4.5"/><circle cx="12" cy="8" r="1.1" fill="currentColor" stroke="none"/></svg>How it works
+        </button>
+        <button onClick="{{ shareFromMenu }}" style="{{ menuPlainStyle }}">
+          <svg width="18" height="18" viewBox="0 0 44 40" fill="none"><circle cx="17" cy="22" r="11" stroke="currentColor" stroke-width="3"/><circle cx="29" cy="22" r="11" stroke="currentColor" stroke-width="3"/></svg>Manage sharing
+        </button>
+        <button onClick="{{ exportFromMenu }}" style="{{ menuPlainStyle }}">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M7 11l5 5 5-5"/><path d="M4 21h16"/></svg>Export data
+        </button>
+      </div>
+    </div>
+  </sc-if>
 
   <!-- REACTION OVERLAY -->
   <sc-if value="{{ hasReaction }}" hint-placeholder-val="{{ false }}">
@@ -285,7 +366,7 @@
         <div style="display:flex;flex-direction:column;gap:15px">
           <div style="display:flex;gap:13px;align-items:flex-start">
             <span style="flex:none;width:36px;height:36px;border-radius:50%;background:#fce0ea;color:#d94f86;display:flex;align-items:center;justify-content:center"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.5 19 2c1 2 2 4.2 2 8a7 7 0 0 1-7 7z"/><path d="M2 21c0-3 1.9-5.4 5.1-6"/></svg></span>
-            <div><div style="font-weight:800;font-size:15px;color:#6e4152;margin-bottom:2px">Check it off</div><div style="font-size:13.5px;color:#8a6072;line-height:1.55">In <b>Today’s glow-up</b>, tap the circle under <b>Diet</b> if you ate well and <b>Move</b> if you exercised — it fills with a checkmark. Tap again to undo. Empty just means not yet.</div></div>
+            <div><div style="font-weight:800;font-size:15px;color:#6e4152;margin-bottom:2px">Check it off</div><div style="font-size:13.5px;color:#8a6072;line-height:1.55">In <b>Today’s check-in</b>, tap the circle under <b>Diet</b> if you ate well and <b>Move</b> if you exercised — it fills with a checkmark. Tap again to undo. Empty just means not yet.</div></div>
           </div>
           <div style="display:flex;gap:13px;align-items:flex-start">
             <span style="flex:none;width:36px;height:36px;border-radius:50%;background:#fce0ea;color:#d94f86;display:flex;align-items:center;justify-content:center"><svg width="18" height="18" viewBox="0 0 32 29" fill="currentColor"><path d="M16 28.5C16 28.5 2 20 2 10.2 2 5.1 5.8 2 9.6 2 12.3 2 14.7 3.7 16 6.1 17.3 3.7 19.7 2 22.4 2 26.2 2 30 5.1 30 10.2 30 20 16 28.5 16 28.5Z"/></svg></span>
@@ -352,7 +433,8 @@ class Component extends DCLogic {
     data: { entries: {} },
     cfg: { binId:'6a4bb7ebda38895dfe357535' },
     showConnect:false, showTutorial:false, status:'idle', lastSync:null, cfgError:'', creating:false,
-    reaction:null, motive:null
+    reaction:null, motive:null,
+    view:'dashboard', menuOpen:false, newTodo:'', newTag:'both'
   };
 
   API='https://api.jsonbin.io/v3';
@@ -472,6 +554,44 @@ class Component extends DCLogic {
 
   debouncedPush(){ if(!this.isConfigured()) return; clearTimeout(this._debTimer); this._debTimer=setTimeout(()=>this.pushRemote(), 600); }
 
+  updateData(patch){
+    const data={...this.state.data, ...patch};
+    this.setState({data});
+    try{ localStorage.setItem('ht.data', JSON.stringify(data)); }catch(e){}
+    this.debouncedPush();
+  }
+  addTodo=()=>{
+    const text=(this.state.newTodo||'').trim(); if(!text) return;
+    const todos=[...(this.state.data.todos||[])];
+    todos.push({ id:'t'+Date.now()+Math.floor(Math.random()*1000), text, done:false, tag:this.state.newTag||'both' });
+    this.updateData({todos});
+    this.setState({newTodo:''});
+  };
+  toggleTodo=(id)=>{
+    let became=false;
+    const todos=(this.state.data.todos||[]).map(t=>{ if(t.id===id){ became=!t.done; return {...t, done:!t.done}; } return t; });
+    this.updateData({todos});
+    if(became) this.triggerReaction('happy');
+  };
+  removeTodo=(id)=>{ const todos=(this.state.data.todos||[]).filter(t=>t.id!==id); this.updateData({todos}); };
+  moveTodo=(id,dir)=>{ const todos=[...(this.state.data.todos||[])]; const i=todos.findIndex(t=>t.id===id); const j=i+dir; if(i<0||j<0||j>=todos.length) return; const tmp=todos[i]; todos[i]=todos[j]; todos[j]=tmp; this.updateData({todos}); };
+  onNewTodo=(e)=>this.setState({newTodo:e.target.value});
+  onTodoKey=(e)=>{ if(e.key==='Enter') this.addTodo(); };
+  setNewTag=(k)=>this.setState({newTag:k});
+
+  toggleMenu=()=>this.setState({menuOpen:!this.state.menuOpen});
+  closeMenu=()=>this.setState({menuOpen:false});
+  goView=(v)=>{ this.setState({view:v, menuOpen:false}); try{ window.scrollTo(0,0); }catch(e){} };
+  guideFromMenu=()=>this.setState({menuOpen:false, showTutorial:true});
+  shareFromMenu=()=>this.setState({menuOpen:false, showConnect:true, cfgError:''});
+  exportFromMenu=()=>{ this.setState({menuOpen:false}); this.exportJson(); };
+
+  weddingLabel(){ const w=new Date(this.WED[0],this.WED[1],this.WED[2]);
+    const wd=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'][w.getDay()];
+    const mo=['January','February','March','April','May','June','July','August','September','October','November','December'][w.getMonth()];
+    return wd+' · '+mo+' '+w.getDate()+', '+w.getFullYear(); }
+  menuRow(active){ return `display:flex;align-items:center;gap:11px;width:100%;padding:11px 12px;border:none;border-radius:12px;background:${active?'#fce0ea':'transparent'};color:${active?'#c7648a':'#7a5866'};font-size:14.5px;font-weight:700;font-family:inherit;cursor:pointer;text-align:left`; }
+
   async createBin(){
     this.setState({creating:true, cfgError:'', status:'saving'});
     try{
@@ -497,6 +617,7 @@ class Component extends DCLogic {
         if(data && data.record) data=data.record;
         if(!data || typeof data!=='object') data={entries:{}};
         if(!data.entries) data.entries={};
+        if(!Array.isArray(data.todos)) data.todos=[];
         this.setState({data, status:'synced', lastSync:Date.now(), cfgError:''});
         try{ localStorage.setItem('ht.data', JSON.stringify(data)); }catch(e){}
       } else if(res.status===404){ this.setState({status:'error', cfgError:'Database not found. Check the ID or create a new one.'}); }
@@ -588,7 +709,36 @@ class Component extends DCLogic {
     ]:[];
 
     const r=this.state.reaction; const days2wed=this.daysUntilWed();
+
+    const view=this.state.view||'dashboard';
+    const tagMap={ af:{l:'Afrah',bg:'#fce0ea',c:'#c7648a'}, saf:{l:'Safwan',bg:'#efe8fb',c:'#7f63b8'}, both:{l:'Both',bg:'#f4ecf6',c:'#8e6f99'} };
+    const rawTodos=this.state.data.todos||[];
+    const todos=rawTodos.map((t,i)=>{ const tg=tagMap[t.tag]||tagMap.both; return {
+      id:t.id, text:t.text, toggle:()=>this.toggleTodo(t.id), remove:()=>this.removeTodo(t.id),
+      moveUp:()=>this.moveTodo(t.id,-1), moveDown:()=>this.moveTodo(t.id,1),
+      textStyle:`font-size:14.5px;line-height:1.35;overflow-wrap:anywhere;${t.done?'font-weight:600;color:#bda9b2;text-decoration:line-through':'font-weight:700;color:#5e3a4c'}`,
+      checkStyle:`flex:none;width:27px;height:27px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s;${t.done?'background:#2e9e6b;color:#fff;border:none':'background:#fff;border:2px dashed #e3b5c8;color:transparent'}`,
+      tagStyle:`align-self:flex-start;font-size:10px;font-weight:800;letter-spacing:.03em;padding:2px 9px;border-radius:999px;background:${tg.bg};color:${tg.c}`,
+      tagLabel:tg.l,
+      upStyle:`display:flex;align-items:center;justify-content:center;width:24px;height:17px;border:none;background:none;padding:0;cursor:${i===0?'default':'pointer'};color:${i===0?'#ebd6df':'#c98aa6'}`,
+      downStyle:`display:flex;align-items:center;justify-content:center;width:24px;height:17px;border:none;background:none;padding:0;cursor:${i===rawTodos.length-1?'default':'pointer'};color:${i===rawTodos.length-1?'#ebd6df':'#c98aa6'}`
+    };});
+    const tagChips=['af','saf','both'].map(k=>{ const tg=tagMap[k]; const sel=(this.state.newTag||'both')===k; return {
+      key:k, label:tg.l, onClick:()=>this.setNewTag(k),
+      style:`flex:1;text-align:center;padding:9px 6px;border-radius:11px;font-size:12.5px;font-weight:800;cursor:pointer;font-family:inherit;border:1.5px solid ${sel?tg.c:'#f3d9e4'};background:${sel?tg.bg:'#fff'};color:${sel?tg.c:'#c98aa6'}` }; });
+
     return {
+      isDashboard:view==='dashboard', isTodos:view==='todos',
+      menuOpen:this.state.menuOpen,
+      goDashboard:()=>this.goView('dashboard'), goTodos:()=>this.goView('todos'),
+      toggleMenu:this.toggleMenu, closeMenu:this.closeMenu,
+      guideFromMenu:this.guideFromMenu, shareFromMenu:this.shareFromMenu, exportFromMenu:this.exportFromMenu,
+      menuDashStyle:this.menuRow(view==='dashboard'), menuTodoStyle:this.menuRow(view==='todos'), menuPlainStyle:this.menuRow(false),
+      todos, hasTodos:rawTodos.length>0, noTodos:rawTodos.length===0,
+      todoCount:rawTodos.length, todoDoneCount:rawTodos.filter(t=>t.done).length,
+      tagChips, newTodo:this.state.newTodo,
+      addTodo:this.addTodo, onNewTodo:this.onNewTodo, onTodoKey:this.onTodoKey,
+      weddingDateLabel:this.weddingLabel(),
       days, people:[af,saf],
       hasToday, today: tf?{label:tf.label,weekday:tf.weekday}:{}, todayPeople,
       countdown: days2wed, countdownWord: days2wed===1?'day':'days',
