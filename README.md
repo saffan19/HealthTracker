@@ -1,31 +1,25 @@
-# Health Tracker (Afrah & Safwan)
+# Wedding Glow-Up Tracker (Afrah & Safwan)
 
-A static dashboard for tracking daily **diet** (1 = good, 0 = not) and **exercise** (1 = done, 0 = not) for two people. Data lives as JSON in this repo, so you both share the same numbers. Works offline too (cached in your browser).
+A cute, baby-pink dashboard for staying consistent with **diet** and **exercise** on the way to the wedding on **October 22, 2026**. Data lives in a small free cloud database (JSONBin.io) you both share, so your numbers stay in sync. It also caches locally, so it works offline.
 
-## One-time setup
+## Using it
+- **No setup needed.** Already connected to a shared database — open it on any device and you both see and edit the same data.
+- A live **countdown** shows how many days until "I do", with rotating pep-talks from a little cast of characters.
+- In **Today's glow-up**, tap **Diet** if you ate well and **Move** if you exercised — it turns to **+**. Tap again for **–** if you didn't. **·** means not logged yet.
+- Every **+** throws a happy floating-hearts party; every **–** gets a gentle, kind pep-talk.
+- Missed a day? Scroll to it in **Our daily log** and tap it in later — any date is editable.
+- **Healthy %** / **Active %** and 🔥 streaks track your consistency. Edits save automatically and refresh every 20 seconds; **Sync** pulls the latest now.
+- **Export** downloads the raw JSON anytime.
 
-1. **Create a repo** (e.g. `health-tracker`) and put these files in it:
-   - `Health Tracker.dc.html`
-   - `support.js`
-   - `data.json`  (starts as `{ "entries": {} }`)
-2. **Turn on GitHub Pages**: repo → Settings → Pages → Deploy from branch → `main` / root.
-   Your app will be at `https://<your-username>.github.io/health-tracker/Health%20Tracker.dc.html`
-3. **Make an access token** (each of you, or share one):
-   - GitHub → Settings → Developer settings → **Fine-grained tokens** → Generate new token
-   - Repository access: only this repo
-   - Permissions → **Contents: Read and write**
-   - Copy the `github_pat_...` string
-4. Open the app → **Connect GitHub** → fill in owner, repo, branch (`main`), path (`data.json`), and your token → **Connect & sync**.
+## Hosting
+It's a static site — put `Health Tracker.dc.html` and `support.js` in any static host (GitHub Pages, Netlify, Vercel) and open the URL. No server required.
 
-That's it. Every toggle saves back to `data.json` in the repo. Hit **Sync** to pull the latest from the other person.
-
-## How it works
-- Tap the big **Today** buttons or any cell in the grid to flip between 1 and 0.
-- **Healthy %** = share of logged days with diet = 1. **Active %** = same for exercise.
-- Streaks count consecutive days (up to today) at 1.
-- The token is stored only in your browser (localStorage), never committed.
+## Changing the shared database
+Click **Connect** to:
+- **Create new shared database** — makes a fresh one and gives you a **Database ID** to send to the other person.
+- **Join an existing one** — paste a Database ID someone shared with you.
 
 ## Notes
-- Last write wins. If you both edit the same second, one Sync fixes it.
-- No token = local-only mode (saves in your browser but doesn't share).
-- Date range is set in the code (`START` / `END`) — currently Jul 6 – Oct 10, 2026.
+- Date range is set in code (`START` / `END`) — currently Jul 6 – Oct 22, 2026 (the wedding day).
+- Last write wins; the 20-second refresh keeps both of you current.
+- This is intentionally low-security (a shared key is embedded). Fine for a private two-person tracker — don't store anything sensitive.
