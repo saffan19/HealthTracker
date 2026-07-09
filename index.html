@@ -59,9 +59,28 @@
       <button onClick="{{ syncNow }}" style="display:flex;align-items:center;gap:6px;background:#fff;border:1px solid #f3d9e4;border-radius:999px;padding:7px 13px;font-size:12.5px;font-weight:700;font-family:inherit;cursor:pointer;color:#a75c78">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><path d="M21 3v5h-5"/></svg>Sync
       </button>
-      <button onClick="{{ toggleMenu }}" title="menu" style="display:flex;align-items:center;justify-content:center;background:#fff;border:1px solid #f3d9e4;border-radius:999px;width:40px;height:34px;cursor:pointer;color:#a75c78">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
-      </button>
+      <div style="position:relative">
+        <button onClick="{{ toggleMenu }}" title="menu" style="display:flex;align-items:center;justify-content:center;background:#fff;border:1px solid #f3d9e4;border-radius:999px;width:40px;height:34px;cursor:pointer;color:#a75c78">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        </button>
+
+        <!-- MENU -->
+        <sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
+          <div onClick="{{ closeMenu }}" style="position:fixed;inset:0;z-index:85"></div>
+          <div onClick="{{ stop }}" style="position:absolute;top:44px;right:0;width:230px;max-width:calc(100vw - 28px);background:#fff;border:1px solid #f3d9e4;border-radius:16px;padding:8px;box-shadow:0 18px 44px rgba(180,90,120,.26);z-index:86">
+            <button onClick="{{ goDashboard }}" style="{{ menuDashStyle }}">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg>Dashboard
+            </button>
+            <button onClick="{{ goTodos }}" style="{{ menuTodoStyle }}">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6h11M9 12h11M9 18h11"/><path d="M4 6l1 1 2-2M4 12l1 1 2-2M4 18l1 1 2-2"/></svg>To-do list
+            </button>
+            <div style="height:1px;background:#f3e2ea;margin:6px 8px"></div>
+            <button onClick="{{ guideFromMenu }}" style="{{ menuPlainStyle }}">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9.5"/><path d="M12 16v-4.5"/><circle cx="12" cy="8" r="1.1" fill="currentColor" stroke="none"/></svg>How it works
+            </button>
+          </div>
+        </sc-if>
+      </div>
     </div>
   </div>
 
@@ -258,10 +277,19 @@
       </button>
     </div>
 
+    <div style="display:flex;gap:8px;margin-bottom:12px">
+      <sc-for list="{{ filterChips }}" as="f" hint-placeholder-count="4">
+        <button onClick="{{ f.onClick }}" style="{{ f.style }}">{{ f.label }}</button>
+      </sc-for>
+    </div>
+
     <sc-if value="{{ hasTodos }}" hint-placeholder-val="{{ true }}">
       <div style="display:flex;flex-direction:column;gap:9px">
         <sc-for list="{{ todos }}" as="t" hint-placeholder-count="3">
-          <div style="display:flex;align-items:center;gap:11px;background:#fff;border:1px solid #f3d9e4;border-radius:14px;padding:10px 10px 10px 12px;box-shadow:0 3px 10px rgba(207,110,150,.05)">
+          <div data-todo-id="{{ t.id }}" style="{{ t.rowStyle }}">
+            <span onPointerDown="{{ t.pointerDown }}" onPointerMove="{{ t.pointerMove }}" onPointerUp="{{ t.pointerUp }}" onPointerCancel="{{ t.pointerCancel }}" style="{{ t.handleStyle }}">
+              <svg width="10" height="16" viewBox="0 0 10 16" fill="currentColor"><circle cx="2.5" cy="2.5" r="1.5"/><circle cx="7.5" cy="2.5" r="1.5"/><circle cx="2.5" cy="8" r="1.5"/><circle cx="7.5" cy="8" r="1.5"/><circle cx="2.5" cy="13.5" r="1.5"/><circle cx="7.5" cy="13.5" r="1.5"/></svg>
+            </span>
             <span onClick="{{ t.toggle }}" style="{{ t.checkStyle }}"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4 10-11"/></svg></span>
             <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:5px">
               <span style="{{ t.textStyle }}">{{ t.text }}</span>
@@ -281,34 +309,10 @@
         <div style="display:flex;justify-content:center;margin-bottom:12px;animation:floatSlow 4s ease-in-out infinite">
           <svg width="52" height="46" viewBox="0 0 44 40" fill="none"><circle cx="17" cy="24" r="12" stroke="#e2c078" stroke-width="3.5"/><circle cx="29" cy="24" r="12" stroke="#d9b36a" stroke-width="3.5"/><path d="M29 3l4 6-4 5-4-5 4-6z" fill="#f7ecd2" stroke="#d9b36a" stroke-width="2" stroke-linejoin="round"/></svg>
         </div>
-        <div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:600;color:#a75c78">No tasks yet</div>
-        <div style="font-size:13px;font-weight:600;margin-top:4px">Add your first one above to start planning.</div>
+        <div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:600;color:#a75c78">{{ noTodosTitle }}</div>
+        <div style="font-size:13px;font-weight:600;margin-top:4px">{{ noTodosText }}</div>
       </div>
     </sc-if>
-  </sc-if>
-
-  <!-- MENU -->
-  <sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
-    <div onClick="{{ closeMenu }}" style="position:fixed;inset:0;z-index:85">
-      <div onClick="{{ stop }}" style="position:absolute;top:64px;right:14px;width:230px;max-width:calc(100vw - 28px);background:#fff;border:1px solid #f3d9e4;border-radius:16px;padding:8px;box-shadow:0 18px 44px rgba(180,90,120,.26)">
-        <button onClick="{{ goDashboard }}" style="{{ menuDashStyle }}">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg>Dashboard
-        </button>
-        <button onClick="{{ goTodos }}" style="{{ menuTodoStyle }}">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6h11M9 12h11M9 18h11"/><path d="M4 6l1 1 2-2M4 12l1 1 2-2M4 18l1 1 2-2"/></svg>To-do list
-        </button>
-        <div style="height:1px;background:#f3e2ea;margin:6px 8px"></div>
-        <button onClick="{{ guideFromMenu }}" style="{{ menuPlainStyle }}">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9.5"/><path d="M12 16v-4.5"/><circle cx="12" cy="8" r="1.1" fill="currentColor" stroke="none"/></svg>How it works
-        </button>
-        <button onClick="{{ shareFromMenu }}" style="{{ menuPlainStyle }}">
-          <svg width="18" height="18" viewBox="0 0 44 40" fill="none"><circle cx="17" cy="22" r="11" stroke="currentColor" stroke-width="3"/><circle cx="29" cy="22" r="11" stroke="currentColor" stroke-width="3"/></svg>Manage sharing
-        </button>
-        <button onClick="{{ exportFromMenu }}" style="{{ menuPlainStyle }}">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M7 11l5 5 5-5"/><path d="M4 21h16"/></svg>Export data
-        </button>
-      </div>
-    </div>
   </sc-if>
 
   <!-- REACTION OVERLAY -->
@@ -434,7 +438,8 @@ class Component extends DCLogic {
     cfg: { binId:'6a4bb7ebda38895dfe357535' },
     showConnect:false, showTutorial:false, status:'idle', lastSync:null, cfgError:'', creating:false,
     reaction:null, motive:null,
-    view:'dashboard', menuOpen:false, newTodo:'', newTag:'both'
+    view:'dashboard', menuOpen:false, newTodo:'', newTag:'both', todoFilter:'all',
+    dragTodoId:null, overTodoId:null, overTodoAfter:false
   };
 
   API='https://api.jsonbin.io/v3';
@@ -574,17 +579,63 @@ class Component extends DCLogic {
     if(became) this.triggerReaction('happy');
   };
   removeTodo=(id)=>{ const todos=(this.state.data.todos||[]).filter(t=>t.id!==id); this.updateData({todos}); };
-  moveTodo=(id,dir)=>{ const todos=[...(this.state.data.todos||[])]; const i=todos.findIndex(t=>t.id===id); const j=i+dir; if(i<0||j<0||j>=todos.length) return; const tmp=todos[i]; todos[i]=todos[j]; todos[j]=tmp; this.updateData({todos}); };
+  visibleTodoIds=()=>{ const f=this.state.todoFilter||'all'; return (this.state.data.todos||[]).filter(t=>f==='all'||t.tag===f).map(t=>t.id); };
+  reorderTodo=(sourceId,targetId,placeAfter)=>{
+    if(!sourceId||!targetId||sourceId===targetId) return;
+    const todos=[...(this.state.data.todos||[])];
+    const from=todos.findIndex(t=>t.id===sourceId); if(from<0) return;
+    const [moved]=todos.splice(from,1);
+    let to=todos.findIndex(t=>t.id===targetId);
+    if(to<0){ todos.splice(from,0,moved); return; }
+    if(placeAfter) to+=1;
+    todos.splice(to,0,moved);
+    this.updateData({todos});
+  };
+  moveTodo=(id,dir)=>{
+    const ids=this.visibleTodoIds(); const vi=ids.indexOf(id); const vj=vi+dir;
+    if(vi<0||vj<0||vj>=ids.length) return;
+    this.reorderTodo(id, ids[vj], dir>0);
+  };
+  dragTodoDown=(id)=>(e)=>{
+    e.preventDefault();
+    try{ e.currentTarget.setPointerCapture(e.pointerId); }catch(err){}
+    this._dragTodoId=id;
+    this.setState({dragTodoId:id, overTodoId:id, overTodoAfter:false});
+  };
+  dragTodoMove=(e)=>{
+    if(!this._dragTodoId) return;
+    e.preventDefault();
+    const el=document.elementFromPoint(e.clientX, e.clientY);
+    const row=el && el.closest ? el.closest('[data-todo-id]') : null;
+    if(!row) return;
+    const overTodoId=row.getAttribute('data-todo-id');
+    const rect=row.getBoundingClientRect();
+    const overTodoAfter=e.clientY > (rect.top + rect.height/2);
+    if(overTodoId!==this.state.overTodoId || overTodoAfter!==this.state.overTodoAfter){
+      this.setState({overTodoId, overTodoAfter});
+    }
+  };
+  dragTodoUp=(e)=>{
+    try{ e.currentTarget.releasePointerCapture(e.pointerId); }catch(err){}
+    const sourceId=this._dragTodoId; this._dragTodoId=null;
+    const { overTodoId, overTodoAfter } = this.state;
+    this.setState({dragTodoId:null, overTodoId:null, overTodoAfter:false});
+    if(sourceId && overTodoId && sourceId!==overTodoId) this.reorderTodo(sourceId, overTodoId, overTodoAfter);
+  };
+  dragTodoCancel=(e)=>{
+    try{ e.currentTarget.releasePointerCapture(e.pointerId); }catch(err){}
+    this._dragTodoId=null;
+    this.setState({dragTodoId:null, overTodoId:null, overTodoAfter:false});
+  };
   onNewTodo=(e)=>this.setState({newTodo:e.target.value});
   onTodoKey=(e)=>{ if(e.key==='Enter') this.addTodo(); };
   setNewTag=(k)=>this.setState({newTag:k});
+  setTodoFilter=(k)=>this.setState({todoFilter:k});
 
   toggleMenu=()=>this.setState({menuOpen:!this.state.menuOpen});
   closeMenu=()=>this.setState({menuOpen:false});
   goView=(v)=>{ this.setState({view:v, menuOpen:false}); try{ window.scrollTo(0,0); }catch(e){} };
   guideFromMenu=()=>this.setState({menuOpen:false, showTutorial:true});
-  shareFromMenu=()=>this.setState({menuOpen:false, showConnect:true, cfgError:''});
-  exportFromMenu=()=>{ this.setState({menuOpen:false}); this.exportJson(); };
 
   weddingLabel(){ const w=new Date(this.WED[0],this.WED[1],this.WED[2]);
     const wd=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'][w.getDay()];
@@ -713,30 +764,46 @@ class Component extends DCLogic {
     const view=this.state.view||'dashboard';
     const tagMap={ af:{l:'Afrah',bg:'#fce0ea',c:'#c7648a'}, saf:{l:'Safwan',bg:'#efe8fb',c:'#7f63b8'}, both:{l:'Both',bg:'#f4ecf6',c:'#8e6f99'} };
     const rawTodos=this.state.data.todos||[];
-    const todos=rawTodos.map((t,i)=>{ const tg=tagMap[t.tag]||tagMap.both; return {
+    const todoFilter=this.state.todoFilter||'all';
+    const dragTodoId=this.state.dragTodoId;
+    const overTodoId=this.state.overTodoId, overTodoAfter=this.state.overTodoAfter;
+    const visTodos=rawTodos.filter(t=>todoFilter==='all'||t.tag===todoFilter);
+    const todos=visTodos.map((t,i)=>{ const tg=tagMap[t.tag]||tagMap.both;
+      const isOver=dragTodoId && dragTodoId!==t.id && overTodoId===t.id;
+      const insertShadow=isOver?(overTodoAfter?',0 3px 0 0 #d94f86':',0 -3px 0 0 #d94f86'):'';
+      return {
       id:t.id, text:t.text, toggle:()=>this.toggleTodo(t.id), remove:()=>this.removeTodo(t.id),
       moveUp:()=>this.moveTodo(t.id,-1), moveDown:()=>this.moveTodo(t.id,1),
+      pointerDown:this.dragTodoDown(t.id), pointerMove:this.dragTodoMove, pointerUp:this.dragTodoUp, pointerCancel:this.dragTodoCancel,
+      handleStyle:`flex:none;width:16px;height:27px;display:flex;align-items:center;justify-content:center;touch-action:none;color:#e0b9c9;${dragTodoId===t.id?'cursor:grabbing':'cursor:grab'}`,
+      rowStyle:`display:flex;align-items:center;gap:9px;background:#fff;border:1px solid #f3d9e4;border-radius:14px;padding:10px 10px 10px 8px;box-shadow:0 3px 10px rgba(207,110,150,.05)${insertShadow};${dragTodoId===t.id?'opacity:.4':''}`,
       textStyle:`font-size:14.5px;line-height:1.35;overflow-wrap:anywhere;${t.done?'font-weight:600;color:#bda9b2;text-decoration:line-through':'font-weight:700;color:#5e3a4c'}`,
       checkStyle:`flex:none;width:27px;height:27px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s;${t.done?'background:#2e9e6b;color:#fff;border:none':'background:#fff;border:2px dashed #e3b5c8;color:transparent'}`,
       tagStyle:`align-self:flex-start;font-size:10px;font-weight:800;letter-spacing:.03em;padding:2px 9px;border-radius:999px;background:${tg.bg};color:${tg.c}`,
       tagLabel:tg.l,
       upStyle:`display:flex;align-items:center;justify-content:center;width:24px;height:17px;border:none;background:none;padding:0;cursor:${i===0?'default':'pointer'};color:${i===0?'#ebd6df':'#c98aa6'}`,
-      downStyle:`display:flex;align-items:center;justify-content:center;width:24px;height:17px;border:none;background:none;padding:0;cursor:${i===rawTodos.length-1?'default':'pointer'};color:${i===rawTodos.length-1?'#ebd6df':'#c98aa6'}`
+      downStyle:`display:flex;align-items:center;justify-content:center;width:24px;height:17px;border:none;background:none;padding:0;cursor:${i===visTodos.length-1?'default':'pointer'};color:${i===visTodos.length-1?'#ebd6df':'#c98aa6'}`
     };});
     const tagChips=['af','saf','both'].map(k=>{ const tg=tagMap[k]; const sel=(this.state.newTag||'both')===k; return {
       key:k, label:tg.l, onClick:()=>this.setNewTag(k),
       style:`flex:1;text-align:center;padding:9px 6px;border-radius:11px;font-size:12.5px;font-weight:800;cursor:pointer;font-family:inherit;border:1.5px solid ${sel?tg.c:'#f3d9e4'};background:${sel?tg.bg:'#fff'};color:${sel?tg.c:'#c98aa6'}` }; });
+    const filterDefs=[{k:'all',l:'All',bg:'#fdeef3',c:'#a75c78'},{k:'af',l:'Afrah',bg:tagMap.af.bg,c:tagMap.af.c},{k:'saf',l:'Safwan',bg:tagMap.saf.bg,c:tagMap.saf.c},{k:'both',l:'Both',bg:tagMap.both.bg,c:tagMap.both.c}];
+    const filterChips=filterDefs.map(f=>{ const sel=todoFilter===f.k; return {
+      key:f.k, label:f.l, onClick:()=>this.setTodoFilter(f.k),
+      style:`flex:1;text-align:center;padding:8px 6px;border-radius:11px;font-size:12px;font-weight:800;cursor:pointer;font-family:inherit;border:1.5px solid ${sel?f.c:'#f3d9e4'};background:${sel?f.bg:'#fff'};color:${sel?f.c:'#c98aa6'}` }; });
 
     return {
       isDashboard:view==='dashboard', isTodos:view==='todos',
       menuOpen:this.state.menuOpen,
       goDashboard:()=>this.goView('dashboard'), goTodos:()=>this.goView('todos'),
       toggleMenu:this.toggleMenu, closeMenu:this.closeMenu,
-      guideFromMenu:this.guideFromMenu, shareFromMenu:this.shareFromMenu, exportFromMenu:this.exportFromMenu,
+      guideFromMenu:this.guideFromMenu,
       menuDashStyle:this.menuRow(view==='dashboard'), menuTodoStyle:this.menuRow(view==='todos'), menuPlainStyle:this.menuRow(false),
-      todos, hasTodos:rawTodos.length>0, noTodos:rawTodos.length===0,
+      todos, hasTodos:visTodos.length>0, noTodos:visTodos.length===0,
+      noTodosTitle: rawTodos.length===0?'No tasks yet':'Nothing here',
+      noTodosText: rawTodos.length===0?'Add your first one above to start planning.':'No tasks match this filter yet.',
       todoCount:rawTodos.length, todoDoneCount:rawTodos.filter(t=>t.done).length,
-      tagChips, newTodo:this.state.newTodo,
+      tagChips, filterChips, newTodo:this.state.newTodo,
       addTodo:this.addTodo, onNewTodo:this.onNewTodo, onTodoKey:this.onTodoKey,
       weddingDateLabel:this.weddingLabel(),
       days, people:[af,saf],
